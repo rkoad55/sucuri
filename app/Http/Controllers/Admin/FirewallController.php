@@ -326,7 +326,7 @@ $auth_data = array(
 'k' 		=> $a_key,
 's' 		=> $s_key,
 'a' 	=> 'update_setting',
-'protected_pages'=> $request->url,
+'protect_page'=> $request->url,
 'format' =>  'json'
 
 );
@@ -352,7 +352,7 @@ curl_close($curl);
 $id = $sucuri_users;
 
 
-         return view('admin.firewall.show',['ok'=>$result, 'id'=>$id, 'message'=> 'Cannot add at the moment. Please try again later...']);
+         return view('admin.firewall.show',['ok'=>$result, 'id'=>$id, 'message'=> 'Protected Page Added Successfully...']);
 
 
 // return view('admin.zones.show',['ok'=>$result]);

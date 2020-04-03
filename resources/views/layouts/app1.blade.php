@@ -64,7 +64,7 @@
     <footer class="footer">
         <div class="container">
 			<center>
-				<p>Copyright &copy; 2020 - BlockDos. All Rights Reserved.</p>
+				<p>Copyright &copy; 2020. All Rights Reserved.</p>
 			</center>
         </div>
     </footer>

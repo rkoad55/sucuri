@@ -11,7 +11,7 @@ $id=json_decode($id);
 
    ?>
      @if(isset($message))
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-success" role="alert">
         {{  $message }}
 		<meta http-equiv = "refresh" content = "2; url = /admin/{{$id}}/firewall" />
     </div>

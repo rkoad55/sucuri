@@ -86,7 +86,7 @@
     <footer class="footer" id="sidebar">
         <div class="container">
 			<center>
-				<p>Copyright &copy; 2020 - <a href="#">BlockDos.</a> All Rights Reserved.</p>
+				<p>Copyright &copy; 2020. All Rights Reserved.</p>
 			</center>
         </div>
     </footer>

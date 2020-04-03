@@ -37,11 +37,7 @@ $logo='images/bd-logo-white.png';
       <div class="col-xs-12 col-md-4 col-md-push-4" style = "background: #333;">
         <div class="login-logo" >
 
-          <img src="{{ $logo }}" alt="@if($branding)
-                  {{ ucfirst($branding->name) }}
-                @else
-                {{ ucfirst(config('app.name')) }}
-                @endif">
+          <br>
         </div>
         <div class="loginbox">
 

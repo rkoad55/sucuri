@@ -252,7 +252,7 @@ Route::get('/removeblack/rr','Admin\DnsController@removeblack');
 
 
 // Route::get('{zone}/firewall','Admin\FirewallController@index');
-     // Route::get('{zone}/protect/ss','Admin\FirewallController@protecteddomain');
+      Route::get('{zone}/protect/ss','Admin\FirewallController@protecteddomain');
      
      
      

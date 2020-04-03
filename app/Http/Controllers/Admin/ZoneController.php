@@ -87,23 +87,23 @@ class ZoneController extends Controller
 
       //  https://monitor22.sucuri.net/scan-api.php?k=1054b11e54487d530f7ddf24f279e61f61fbf1410f9e713786&a=scan
 
-//          $curl = curl_init();
-// $auth_data = array(
-//     'k'         => '7302b26beb3438873cf29499591358fc'
+         $curl = curl_init();
+$auth_data = array(
+    'k'         => '687ba044faad818492c050b83958e3e98afc42146a264e556e'
     
     
     
-// );
-// curl_setopt($curl, CURLOPT_POST, 1);
-// curl_setopt($curl, CURLOPT_POSTFIELDS, $auth_data);
-// curl_setopt($curl, CURLOPT_URL, 'https://monitor22.sucuri.net/scan-api.php');
-// curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-// curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-// $result = curl_exec($curl);
-// if(!$result){die("Connection Failure");}
-// curl_close($curl);
-//  return $result;
-// die();
+);
+curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, $auth_data);
+curl_setopt($curl, CURLOPT_URL, 'https://monitor22.sucuri.net/scan-api.php?');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+$result = curl_exec($curl);
+if(!$result){die("Connection Failure");}
+curl_close($curl);
+ return $result;
+die();
  $ided=auth()->user()->id;
 
 
