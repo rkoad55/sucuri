@@ -3,7 +3,13 @@
 
 @section('content')
     <h3 class="page-title">Pending Domains</h3>
-    
+      
+ @if (!empty(session()->get( 'data' )))
+  <div class="alert alert-success alert-dismissable custom-success-box" style="margin: 15px;">
+     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+     <strong>{{session()->get( 'data' )}} </strong>
+  </div>
+@endif
 
     <div class="panel panel-default" style="background: white;">
         <div class="panel-heading">
@@ -46,6 +52,7 @@
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
                                         'route' => ['admin.users.destroy', $val->id])) !!}
+                                        <input type="hidden" name="delete" value="delete" />
                                     {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-danger')) !!}
                                     {!! Form::close() !!}
                                 </div>

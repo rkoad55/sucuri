@@ -3,7 +3,15 @@
 
 @section('content')
 
+<style>
+    .note{
+        display: none;
 
+    }
+    .note .note-info{
+        display: none;
+    }
+</style>
 <?php
 
 $results=json_decode($ok);
@@ -12,7 +20,7 @@ $results=json_decode($ok);
  @if(isset($message))
     <div class="alert alert-danger" role="alert">
         {{  $message }}
-		<meta http-equiv = "refresh" content = "2; url = /admin/{{$request->id}}/dns" />
+		<meta http-equiv = "refresh" content = "1; url = /admin/{{$request->id}}/dns" />
 
     </div>
     @endif
@@ -26,28 +34,29 @@ $results=json_decode($ok);
                         </ul>
                     </div>
                 @endif
+                <h2 style="font-size: 20px !important;">Whitelist/Blacklist IP </h2>
+
 	<div class="row" style="background: white;">
                 <div class="col-xs-12" style="width: 100%;">
-                    <h2 style="font-size: 20px !important; padding: 10px;">Whitelist/Blacklist IP </h2>
                     <div class="panel panel-success">
                         <div class="panel-heading" style="padding: 10px;"><h3>{{$results->output->domain}}</h3></div>
                         <div class="panel-body" >
-  					<h3>Add Ip BlackList / Whitelist</h3>
+  					<h3>Add BlackList/Whitelist IP</h3>
      
-  					<form method="get"  role="form" action="/insertIp"  >      
-              <input type="hidden" name="id" value="{{$id}}">
-  						<span>Add Ip</span><br>
+  					<form method="get"  role="form" action="/insertIp" onsubmit="myFunction()"  >      
+              <input type="hidden" name="id" value=" <?php if(isset($message)){ } else { echo $id; } ?>">
+  						<span>Add IP</span><br>
   						<input type="text" name="ip" required class="form-control" /><br>
-  						<span>Select White-list Or Black-list</span><br>
+  						<span>Select Whitelist Or Blacklist IP</span><br>
   						<select name="list" required class="form-control">
-  							<option value="">Select Ip List</option>
-  							<option value="whitelist_ip">Whitelist Ip</option>
-  							<option value="blacklist_ip">Blacklist Ip</option>
+  							<option value="">Select IP List</option>
+  							<option value="whitelist_ip">Whitelist IP</option>
+  							<option value="blacklist_ip">Blacklist IP</option>
   						</select><br> 
 
   					<!-- 	<span>Enter Duration In Second (<sub>When you not enter duration so minimum time is 3 hours</sub>)</span> 
   						<input type="text" name="time" class="form-control" required="" /> <br> -->
-  						<input type="submit" class="btn btn-success" /><br><br>
+  						<input type="submit" value="ADD" class="btn btn-success" /><br><br>
 					</form>                          
 
                             <h4>IPs</h4>
@@ -96,5 +105,9 @@ $results=json_decode($ok);
 @stop
 
 @section('javascript') 
-    
+<script>
+    function myFunction() {
+        alert("New IP Added...!!!");
+    }
+</script>
 @endsection

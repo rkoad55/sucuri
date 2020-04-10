@@ -70,12 +70,12 @@ $sucuri_userss = DB::table('brandings')
                                 </td>
                                 <td>
                                 <?php  if ($sucuri_users->s_key != null) { ?>
-                                <button type="button" class="btn  btn-success">Aproved</button>
+                                <button type="button" class="btn  btn-success disabled">Aproved</button>
                                 <?php  } else if ($sucuri_users->active == 2) { ?>
-                                    <button type="button" class="btn   btn-success">Deleted</button>
+                                    <button type="button" class="btn btn-danger disabled">Deleted</button>
 
                                 <?php  } else { ?>
-<button type="button" class="btn  btn-warning">Pending</button>
+<button type="button" class="btn btn-warning disabled">Pending</button>
 
 <?php  }  ?> 
 
@@ -90,7 +90,7 @@ $sucuri_userss = DB::table('brandings')
 {!! Form::close() !!}
 <?php } else {?>
 
-   <a href="#" class="btn btn-xs btn-danger">Delete In Progress</a>
+   <a href="#" class="btn btn-secondary disabled">Delete In Progress</a>
 
    <?php } ?>  
                                 </td>

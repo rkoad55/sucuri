@@ -27,7 +27,7 @@
          </div>
         @endif
 <div class="row" style="background: white; width: 100%">
-                <div class="col-xs-12">
+                <div class="col-xs-12" style="background: white; width: 100%">
                     <h2 style="padding-left: 10px;">White List IP</h2>
                     <div class="panel panel-success" style="width: 100%">
                         {{-- <div class="panel-heading"><h3>{{$result->output->domain}}</h3></div> --}}

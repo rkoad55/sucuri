@@ -36,13 +36,13 @@
             </div>
 
             
+            {!! Form::hidden('a_key','7302b26beb3438873cf29499591358fc', ['class' => 'form-control', 'id'=>"a_key", 'placeholder' => '', 'required' => '']) !!}
 
 
-
-            <div class="row">
+            <!--div class="row">
                 <div class="col-xs-12 form-group" style="width: 100%;">
                     {!! Form::label('a_key', 'Api Key*', ['class' => 'control-label']) !!}
-                    {!! Form::text('a_key', old('a_key'), ['class' => 'form-control', 'id'=>"a_key", 'placeholder' => '', 'required' => '']) !!}
+                    
                     <p class="help-block"></p>
                     @if($errors->has('a_key'))
                         <p class="help-block">
@@ -50,7 +50,7 @@
                         </p>
                     @endif
                 </div>
-            </div>
+            </div-->
 
            </div>
            </div>

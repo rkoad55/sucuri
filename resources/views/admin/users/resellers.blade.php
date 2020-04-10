@@ -22,8 +22,6 @@
 
                         <th>@lang('global.users.fields.name')</th>
                         <th>@lang('global.users.fields.email')</th>
-                        <th>Domains</th>
-                        
                         
                         <th>&nbsp;</th>
 
@@ -42,10 +40,10 @@
 
                                 <td>{{ $val->name }}</td>
                                 <td>{{ $val->email }}</td>
-                                 <td>{{ $val->branding->cf }}</td>
                                 
                                
                                 <td>
+                                    <center>
                                     <div style="">
                                     
                                     <a href="{{ route('admin.users.edit',[$val->id]) }}" class="btn btn-info">@lang('global.app_edit')</a>
@@ -57,6 +55,7 @@
                                     {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-danger')) !!}
                                     {!! Form::close() !!}
                                 </div>
+                                    </center>
                                 </td>
 
                             </tr>
@@ -73,6 +72,13 @@
         </div>
     </div>
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>    <br>
+    <br>
+    <br>    <br>
     <br>
     <br>
 @stop

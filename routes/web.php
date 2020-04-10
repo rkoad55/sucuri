@@ -240,7 +240,7 @@ Route::get('/removeblack/rr','Admin\DnsController@removeblack');
 
 // Route::get('{zone}/firewall','Admin\FirewallController@index
 //     ');
-// Route::get('{zone}/{id}','Admin\FirewallController@store');
+ Route::get('{zone}/{id}','Admin\FirewallController@store')->name('removepage');
 //      Route::get('{zone}/','Admin\FirewallController@edit');
      // Route::get('{zone}/pageRuleStatus','Admin\ZoneController@pageRuleStatus');
 //Route::get('{zone}/crypto', 'Admin\ZoneController@crypto');

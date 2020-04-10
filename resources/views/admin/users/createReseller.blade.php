@@ -1,57 +1,70 @@
 @extends('layouts.app')
 
 @section('content')
+<h3 class="page-title">@lang('global.app_create') Reseller</h3>
+<style>
+    .note .note-danger{
+        display: none !important;
+    }
+    .list-unstyled{
+        display: none !important;
 
-    {!! Form::open(['method' => 'POST', 'route' => ['admin.resellers.store']]) !!}
+    }
+</style>
+
+    {!! Form::open(['method' => 'POST', 'route' => ['admin.resellers.store'], "onsubmit" => "myFunction()"]) !!}
 
     <div class="panel panel-default" style="background: white;">
         <div class="panel-heading">
-          <h3 style="font-size: 20px !important;"> @lang('global.app_create') Reseller</h3>
+          {{-- <h3 style="font-size: 20px !important;"> </h3> --}}
         </div>
         
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group" style="width: 100%;">
+                    
                     {!! Form::label('name', 'Name*', ['class' => 'control-label']) !!}
-                    {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
-                    <p class="help-block"></p>
                     @if($errors->has('name'))
-                        <p class="help-block">
+                        <p class="help-block alert alert-danger">
                             {{ $errors->first('name') }}
                         </p>
                     @endif
+                    {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group" style="width: 100%;">
+                    
                     {!! Form::label('email', 'Email*', ['class' => 'control-label']) !!}
-                    {!! Form::email('email', old('email'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
-                    <p class="help-block"></p>
                     @if($errors->has('email'))
-                        <p class="help-block">
+                        <p class="help-block alert alert-danger">
                             {{ $errors->first('email') }}
                         </p>
                     @endif
+                    {!! Form::email('email', old('email'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group" style="width: 100%;">
+                    
                     {!! Form::label('password', 'Password*', ['class' => 'control-label']) !!}
-                    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
-                    <p class="help-block"></p>
                     @if($errors->has('password'))
-                        <p class="help-block">
+                        <p class="help-block alert alert-danger">
                             {{ $errors->first('password') }}
                         </p>
                     @endif
+                    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-xs-12 form-group" style="width: 100%;">
-                    {!! Form::label('Select Pckg', 'Select Pckg', ['class' => 'control-label']) !!}
+                    {!! Form::label('Select Package', 'Select Package', ['class' => 'control-label']) !!}
                     <select name="pckg" id="pckg" class="form-control" onchange="pckgChanging();" required="">
-                      <option value="">Select Pacakge</option>
+                      <option value="">Select Package</option>
 
                       @foreach ($pckg as $val)
                         <option value= "{{ $val->id }}" >{{$val->name}}</option>
@@ -102,12 +115,16 @@
                 </div>
             </div>
 
-             <div  class="row">
-                     <div class="col-xs-12 " style="width: 100%;">
-
+        </div>
+    </div>
     
-        {!! Form::submit( 'Save' , ['class' => 'btn btn-lg btn-success']) !!}
+        {!! Form::submit( 'ADD' , ['class' => 'btn btn-success']) !!}
         {!! Form::close() !!}
 
+        <script>
+            function myFunction() {
+                alert("New Reseller Added...!!!");
+            }
+        </script>
 @stop
 

@@ -87,23 +87,18 @@ class ZoneController extends Controller
 
       //  https://monitor22.sucuri.net/scan-api.php?k=1054b11e54487d530f7ddf24f279e61f61fbf1410f9e713786&a=scan
 
-         $curl = curl_init();
-$auth_data = array(
-    'k'         => '687ba044faad818492c050b83958e3e98afc42146a264e556e'
-    
-    
-    
-);
-curl_setopt($curl, CURLOPT_POST, 1);
-curl_setopt($curl, CURLOPT_POSTFIELDS, $auth_data);
-curl_setopt($curl, CURLOPT_URL, 'https://monitor22.sucuri.net/scan-api.php?');
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-$result = curl_exec($curl);
-if(!$result){die("Connection Failure");}
-curl_close($curl);
- return $result;
-die();
+//          $curl = curl_init();
+
+// curl_setopt($curl, CURLOPT_POST, 1);
+// curl_setopt($curl, CURLOPT_POSTFIELDS, 1);
+// curl_setopt($curl, CURLOPT_URL, 'https://monitor22.sucuri.net/api.php?k=687ba044faad818492c050b83958e3e98afc42146a264e556e&a=scan&host=opticalmart.com');
+// curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+// curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+// $result = curl_exec($curl);
+// if(!$result){die("Connection Failure");}
+// curl_close($curl);
+//  return $result;
+// die();
  $ided=auth()->user()->id;
 
 
@@ -226,7 +221,7 @@ if($ided != 1){
 */
 
         Sucuri::create($request->all());
-       $request->session()->flash('status', "Domian Name Added Successfully Wait for Aproval From Master ...");
+       $request->session()->flash('status', "Your domain name request has been submitted successfully and is now awaiting approval.");
         return redirect()->route('admin.zones.index')->with('success', 'Post Updated');
 
 
@@ -884,7 +879,7 @@ $this->validate($request,[
     //$result=var_dump ($result); //return  view('admin.zones.show', ['sucuri_user'=>$result]);
     //view('admin.zones.show', compact('sucuri_user', 'result'));
     // view('admin.zones.show')->with('result', $result);
-    return view('admin.zones.seo', ['ok'=>$result, 'message'=> $string]);
+    return view('admin.zones.seo', ['ok'=>$result, 'message'=> $string,'sucuri_user'=>$users]);
     
     // return view('admin.zones.show',['ok'=>$result]);
     
@@ -953,7 +948,7 @@ $this->validate($request,[
     //$result=var_dump ($result); //return  view('admin.zones.show', ['sucuri_user'=>$result]);
     //view('admin.zones.show', compact('sucuri_user', 'result'));
     // view('admin.zones.show')->with('result', $result);
-    return view('admin.zones.seo', ['ok'=>$result, 'message'=> $string]);
+    return view('admin.zones.seo', ['ok'=>$result, 'message'=> $string,'sucuri_user'=>$users]);
     
     // return view('admin.zones.show',['ok'=>$result]);
     
@@ -1108,7 +1103,7 @@ $this->validate($request,[
     //$result=var_dump ($result); //return  view('admin.zones.show', ['sucuri_user'=>$result]);
     //view('admin.zones.show', compact('sucuri_user', 'result'));
     // view('admin.zones.show')->with('result', $result);
-    return view('admin.zones.loadBalancers', ['ok'=>$result, 'message'=> $string]);
+    return view('admin.zones.loadBalancers', ['ok'=>$result, 'message'=> $string,'sucuri_user'=> $users]);
     
     // return view('admin.zones.show',['ok'=>$result]);
     

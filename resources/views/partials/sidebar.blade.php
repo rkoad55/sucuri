@@ -24,9 +24,9 @@
                 </a> </h5>
                 {{-- <p class="text-muted mb-0"><small>Admin Head</small></p> --}}
                 <br>
-                <a  class=" notify-item">
+                <!--a  class=" notify-item">
                     <i class="fe-settings"></i>
-                 </a> &nbsp;
+                 </a--> &nbsp;
                  <a href="{{ url('logout') }}" class="notify-item">
                     <i class="mdi mdi-power"></i>
                 </a>

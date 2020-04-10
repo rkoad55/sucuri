@@ -43,14 +43,14 @@
                             <i class="fas fa-sign-out-alt"></i>
                             <span class="title">@lang('global.app_logout')</span>
                         </li> --}}
-                        <li class="dropdown notification-list">
+                        <!--li class="dropdown notification-list">
                             <a style="color: black" class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                 <i class="fe-bell noti-icon" style="font-size: 20px !important;"></i>
                                 <span class="badge badge-danger rounded-circle noti-icon-badge"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-lg">
     
-                                <!-- item-->
+                                <-- item->
                                 <div class="dropdown-item noti-title">
                                     <h5 class="m-0">
                                         {{-- <span class="float-right">
@@ -58,7 +58,7 @@
                                                 <small></small>
                                             </a>
                                         </span> --}}
-                                        Notifications
+                                        Notifications sdfs
                                     </h5>
                                 </div>
     
@@ -66,7 +66,7 @@
                          <div class="notify-icon bg-success">
                                             <i class="mdi mdi-account-plus">Pending Domain Requests</i>
                                         </div>
-                                    <!-- item-->
+                                    <-- item->
                                 @if ($ided == 1)
                                     @foreach ($pending as $p)
                                     <a href="pending" style="color: black" class="dropdown-item notify-item active">
@@ -80,9 +80,9 @@
                                         </p>
                                     </a>
                                     @endforeach
-                                    <!-- item-->
+                                    <-- item->
                                     
-                                    <!-- item-->
+                                    <-- item->
                                     <a href="delete" style="color: black" class="dropdown-item notify-item">
                                         <div class="notify-icon bg-danger">
                                             <i class="mdi mdi-account-plus">Delete Domain Request </i>
@@ -116,9 +116,9 @@
                                         </p>
                                     </a>
                                     @endforeach
-                                    <!-- item-->
+                                    <-- item-->
                                     
-                                    <!-- item-->
+                                    <!-- item->
                                     <a href="javascript:void(0);" style="color: black" class="dropdown-item notify-item">
                                         <div class="notify-icon bg-danger">
                                             <i class="mdi mdi-account-plus">Delete Domain Request </i>
@@ -142,14 +142,14 @@
                                     @endif
 
     
-                                <!-- All-->
+                                <-- All>
                                 <a href="javascript:void(0);" style="color: black" class="dropdown-item text-center text-primary notify-item notify-all">
                                     
                                     <i class="fi-arrow-right"></i>
                                 </a>
     
                             </div>
-                        </li>
+                        </li>-->
     
                         <li class="dropdown notification-list">
                             <a class="nav-link dropdown-toggle nav-user mr-0"  style="color: black"data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">

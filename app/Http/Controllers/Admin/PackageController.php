@@ -189,6 +189,6 @@ class PackageController extends Controller
     public function manage(){
         $id = auth()->user()->id;
  
-        return view('admin.users.createPckg', compact(''));
+        return view('admin.users.createPckg');
     }
 }

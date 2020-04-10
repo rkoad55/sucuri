@@ -1,7 +1,7 @@
 @extends('layouts.app3')
 
 @section('content')
-    <h3 class="page-title">@lang('global.users.title')</h3>
+    <h3 class="page-title">Edit Reseller</h3>
     
     {!! Form::model($user, ['method' => 'PUT', 'route' => ['admin.users.update', $user->id]]) !!}
 
@@ -36,6 +36,22 @@
                     @endif
                 </div>
             </div>
+
+
+            <div class="row">
+                <div class="col-xs-12 form-group" style="width: 100%;">
+                    {!! Form::label('password', 'Password', ['class' => 'control-label']) !!}
+                    {!! Form::password('password', ['class' => 'form-control', 'placeholder' => '']) !!}
+                    <p class="help-block"></p>
+                    @if($errors->has('password'))
+                        <p class="help-block">
+                            {{ $errors->first('password') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+
+
             <div class="row">
                 <div class="col-xs-12 form-group" style="width: 100%;">
                     {!! Form::label('Select Pckg', 'Select Pckg', ['class' => 'control-label']) !!}
@@ -68,7 +84,7 @@
 </div>
 
 </div>
-{!! Form::submit(trans('global.app_update'), ['class' => 'btn btn-danger']) !!}
+{!! Form::submit(trans('global.app_update'), ['class' => 'btn btn-danger', 'onclick' => 'myFunction()']) !!}
 {!! Form::close() !!}
 </div>
 
@@ -77,6 +93,12 @@
 <script type="text/javascript">
     
     $('#pckg').val('{{$branding->pckg_detail}}');
+
+</script>
+<script>
+    function myFunction() {
+        alert("Information Updated...!!!");
+    }
 </script>
 @stop
 

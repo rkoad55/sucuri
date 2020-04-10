@@ -5,21 +5,24 @@
 <script type="text/javascript">
     
     function confirmMsg(){
-        var msg = confirm("are you sure");
+        var msg = confirm("Are you sure?");
 
         if(msg){
-            return true; 
+            alert('Deleted...!!!'); 
         }
         else{
+            // return false;
+            alert('Not Deleted...!!!'); 
             return false;
+
         } 
 
     }
 
 </script>
-    <h3 class="page-title">Pacakges</h3>
+    <h3 class="page-title">Packages</h3>
     <p>
-        <a href="{{ route('admin.resellers.createPckg') }}" class="btn btn-success btn-lg">@lang('global.app_add_new')</a>
+        <a href="{{ route('admin.resellers.createPckg') }}" class="btn btn-success">@lang('global.app_add_new')</a>
     </p>
 
     <div class="panel panel-default" style="background: white;">
@@ -36,7 +39,7 @@
 
                         <th>@lang('global.users.fields.name')</th>
                         <th>Price</th>
-                        <th>description</th>
+                        <th>Description</th>
                         <th>Domains</th>
                         <th>&nbsp;</th>
 
@@ -60,11 +63,11 @@
                                 <td>
                                     <div style="">
                                     
-                                    <a href="{{ route('admin.pacakge.edit',[$val->id]) }}" class="btn btn-xs btn-info">@lang('global.app_edit')</a> 
-                                   
+                                    <a href="{{ route('admin.pacakge.edit',[$val->id]) }}" class="btn btn-info">@lang('global.app_edit')</a> 
+                                   &nbsp;
                                   <form action= " {{ route('admin.pacakge.destroy') }}"  method="get" onsubmit="return confirmMsg();">
                                         <input type="hidden" name="id" value="{{ $val->id }}">
-                                        <input type="submit"  value= "Delete" class="btn btn-xs btn-danger">
+                                        <input type="submit"  value= "Delete" class="btn btn-danger">
                                     </form>
                                    
                                 </div>
@@ -82,6 +85,15 @@
             </table>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 @stop
 
 

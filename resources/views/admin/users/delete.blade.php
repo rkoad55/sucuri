@@ -6,9 +6,10 @@
 <script type="text/javascript">
     
     function confirmMsg(){
-        var msg = confirm("are you sure");
+        var msg = confirm("Are you sure?");
 
         if(msg){
+            alert('Deleted!');
             return true; 
         }
         else{
@@ -19,6 +20,12 @@
 
 </script>
 
+@if (isset($data))
+  <div class="alert alert-success alert-dismissable custom-success-box" style="margin: 15px;">
+     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+     <strong>{{$data}} </strong>
+  </div>
+@endif
     <h3 class="page-title">Delete Domains</h3>
     
 
@@ -34,7 +41,7 @@
                         <th style="text-align:center;"><input type="checkbox" id="select-all" /></th>
 
                         <th>@lang('global.users.fields.name')</th>
-                        <th>URLsss</th>
+                        <th>URL</th>
                         <th>API</th>
                         <th>&nbsp;</th>
 
@@ -53,13 +60,14 @@
                                  <td>{{ $val->a_key }}</td>
                                 
                                
-                                <td>
+                                <td><center>
                                     <div style=""> 
                                     <form action= " {{ route('admin.delete1') }}"  method="get" onsubmit="return confirmMsg();">
                                         <input type="hidden" name="id" value="{{ $val->id }}">
                                         <input type="submit"  value= "Delete" class="btn  btn-danger">
                                     </form>
                                 </div>
+                                </center>
                                 </td>
 
                             </tr>

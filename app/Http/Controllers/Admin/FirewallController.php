@@ -172,8 +172,8 @@ $notes=$request->input('note');
      */
     public function store($id, $sucuri_users, Request $request)
     {
-        // $sucuri_users;
-
+       // return $request->page;
+//die('oko');
 
         //$users      = Sucuri::where('id',$sucuri_users)->get();
        
@@ -191,7 +191,7 @@ $notes=$request->input('note');
            'k' 		=> $a_key,
            's' 		=> $s_key,
            'a' 	=> 'update_setting',
-           'protected_page_remove[]'=>$sucuri_users,
+           'protected_page_remove[]'=>$request->page,
            'format' =>  'json'
            
        );

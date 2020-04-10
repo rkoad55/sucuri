@@ -80,7 +80,7 @@ $id=json_decode($id);
                     @else
                     Not Selected
                     @endif</b></td>
-                    <td><a href="{{ $key->path }}"><button  onclick="myFunction()" class="btn btn-danger">DELETE FROM PROTECTED PAGES</button></a> 
+                    <td><a href="removepage?page={{ $key->path }}"><button  onclick="myFunction()" class="btn btn-danger">DELETE FROM PROTECTED PAGES</button></a> 
                     
                 </td>
                     

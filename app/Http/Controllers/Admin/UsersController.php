@@ -123,7 +123,7 @@ mail($to_email,$subject,$message,$headers);
          if (! Gate::allows('users_manage')) {
             return abort(401);
         }
-    $users  = DB::table('sucuri_user')->where('active','0')->get();
+    $users  = DB::table('sucuri_user')->where(['active' => '0', 'active' => '2'])->get();
 
       $name = "";
       $to = "bilal.shaikh@s4scorp.com";
@@ -143,10 +143,12 @@ mail($to_email,$subject,$message,$headers);
 if (! Gate::allows('users_manage')) {
             return abort(401);
         }
-         DB::table('sucuri_user')->where('id',$req->id)->update(['active' => '2' ]);
-        $users = DB::table('sucuri_user')->where('s_key' , '' )->where('active' , '0')->get();
-         return view('admin.users.pending', compact('users')); 
-
+         DB::table('sucuri_user')->where('id',$req->id)->update(['active' => '2' ]); 
+        $users = DB::table('sucuri_user')->where('s_key' , null )->where('active' , '0')->get();
+         // return view('admin.users.index', compact('users'));  
+        // return redirect()->route('admin.pending');
+        $data = "Domain Rejected.";
+            return redirect()->route('admin.pending')->with( [ 'data' => $data ] );
     }
 
 public function updateLogo(Request $req){
@@ -163,8 +165,10 @@ public function pending()
         if (! Gate::allows('users_manage')) {
             return abort(401);
         } 
-        $users = DB::table('sucuri_user')->where('s_key' , '' )->get();
+        $users = DB::table('sucuri_user')->where(['s_key' =>  null , 'active' => '1']  )->get();
         return view('admin.users.pending', compact('users'));
+
+
     }
 
  
@@ -206,9 +210,11 @@ public function pending()
         }
     $user = DB::table('sucuri_user')->where('id',$req->id)->update(['s_key' => $req->s_key]);
     $users = DB::table('sucuri_user')->where('id', $req->id)->get();
-
-    $data = "updated";
-    return view('admin.zones.update', compact('users','data'));  
+ 
+    // $data = "updated";
+    // return view('admin.zones.update', compact('users','data'));  
+    $data = "Domain Accepted + Updated.";
+            return redirect()->route('admin.pending')->with( [ 'data' => $data ] );
 }
 
     /**
@@ -573,34 +579,24 @@ public function deleteUsers( Request $req)
             return abort(401);
         }
          DB::delete('delete from sucuri_user where id = ?',[$req->id]);
-         $users = DB::table('sucuri_user')->where('active' , '0')->get();
-       return view('admin.users.delete', compact('users'));
+         $users = DB::table('sucuri_user')->where(['active' => '0', 'active' => '2'])->get();
+         $data = "Domain Deleted.";
+       //return view('admin.users.delete', compact('users','data'));
+//return "ok";
+       return  view('admin.users.delete', ['users'=>$users,'data'=>$data ]);
 
     } 
 
     public function destroy($id , Request $req)
     {
-        if (! Gate::allows('users_manage')) {
-            return abort(401);
-        }
-
-
-        // dd($id.  "   " .$req->resller);
-
-        $user = User::findOrFail($id);
-         if ( $user->owner!= auth()->user()->id) {
-            return abort(401);
-        }
-
-        if(isset($req->resller)){
-
+          
+        if($req->delete == "delete" ){ 
 
          DB::delete('delete from sucuri_user where id = ?',[$id]);
          $users = DB::table('sucuri_user')->where('id' , $id)->get();
-        
-
-
-       return view('admin.users.delete', compact('users'));
+         $data = "Domain Deleted.";
+            return redirect()->route('admin.pending')->with( [ 'data' => $data ] );
+       // return view('admin.users.index', compact('users'));
 
             
 
@@ -613,19 +609,6 @@ else{
 
                 return redirect()->route('admin.listResellers');
 }
-        // if($user->zone->count()>0)
-        // {
-        //     dd("user has domains");
-        // }
-        // else
-        // {
-        //     // dd("user does not have domains");
-        //     $user->delete();    
-        // }
-        
-
-        // return redirect()->route('admin.listResellers');
-        
     }
 
     /**

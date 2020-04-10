@@ -87,7 +87,7 @@ $logo='images/bd-logo-white.png';
 
         </div>
         <div class="loginbox-alternate">
-          <p><a href="{{ route('auth.password.reset') }}">Forgot Password?</a></p>
+          {{-- <p><a href="{{ route('auth.password.reset') }}">Forgot Password?</a></p> --}}
         </div>
       </div>
     </div>

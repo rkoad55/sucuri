@@ -12,7 +12,7 @@
         <ul class="sidebar-menu" id="sidebar-menu">
 
             <li {{{ (Request::is('*/overview') ? 'class=active' : '') }}}>
-                        <a id = "anchor" href="{{action('Admin\ZoneController@show',Request::segment(2))}}">
+                        <a id = "anchor" href="overview">
                             <span class="icon"><i class="fas fa-bars"></i> </span>
                             <span class="title"> Overview</span>
                         </a>

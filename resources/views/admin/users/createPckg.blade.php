@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<h3 style="font-size: 20px !important;"> Package</h3>
 
-    {!! Form::open(['method' => 'POST', 'route' => ['admin.pckg.store']]) !!}
+    {!! Form::open(['method' => 'POST', 'route' => ['admin.pckg.store'], 'onsubmit' => 'myFunction()']) !!}
 
     <div class="panel panel-default" style="background: white;">
         <div class="panel-heading"> 
-          <h3 style="font-size: 20px !important;"> @lang('global.app_create') Pacakge</h3>
         </div>
         
         <?php 
@@ -44,7 +44,7 @@
         <div class="panel-body">
             <div class="row">  
                 <div class="col-xs-12 form-group" style="width: 100%;">
-                    {!! Form::label('Name', 'Pacakge Name*', ['class' => 'control-label']) !!}  
+                    {!! Form::label('Name', 'Package Name*', ['class' => 'control-label']) !!}  
                     {!! Form::text('name', $name, ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('name'))
@@ -56,8 +56,8 @@
             </div> 
             <div class="row">
                 <div class="col-xs-12 form-group" style="width: 100%;">
-                    {!! Form::label('Price', 'Price*', ['class' => 'control-label']) !!}
-                    {!! Form::text('price', $price, ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    {!! Form::label('Price', 'Price', ['class' => 'control-label']) !!}
+                    {!! Form::text('price', $price, ['class' => 'form-control', 'placeholder' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('email'))
                         <p class="help-block">
@@ -71,7 +71,7 @@
                 <div class="col-xs-12 form-group" style="width: 100%;">
                     {!! Form::label('domains', 'No. of Domains*', ['class' => 'control-label']) !!}
                     {{-- <label class="form-control" for="domains">No of domains</label> --}}
-                    <input type="number" name="domains" placeholder="Enter domains here..." value="{{ $domains }}" class="form-control"> 
+                    <input type="number" name="domains" placeholder="Enter domains here..." value="{{ $domains }}" class="form-control" required> 
                 </div>
             </div>
             <div class="row">
@@ -194,7 +194,7 @@
          
         <br>
         <br> 
-        {!! Form::submit( $btnName , ['class' => 'btn btn-lg btn-success']) !!}
+        {!! Form::submit( $btnName , ['class' => 'btn btn-success']) !!}
         {!! Form::close() !!}
       </div>
     </div>
@@ -204,6 +204,10 @@
     
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    
+    <script>
+      function myFunction() {
+          alert("Done...!!!");
+      }
+  </script>
 @stop
 
