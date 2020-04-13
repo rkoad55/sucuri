@@ -12,7 +12,7 @@
 
             @include('partials.sidebar2')
             <div class="main">
-        <div class="container-fluid">
+        <div class="container-fluid" style="width: 98%;">
             @if(isset($siteTitle))
                 <h3 class="page-title">
                     {{ $siteTitle }}

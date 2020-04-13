@@ -123,7 +123,7 @@ mail($to_email,$subject,$message,$headers);
          if (! Gate::allows('users_manage')) {
             return abort(401);
         }
-    $users  = DB::table('sucuri_user')->where(['active' => '0', 'active' => '2'])->get();
+    $users  = DB::table('sucuri_user')->where('active' , '0')->orwhere('active','2')->get();
 
       $name = "";
       $to = "bilal.shaikh@s4scorp.com";
@@ -135,7 +135,7 @@ mail($to_email,$subject,$message,$headers);
 
    // email('Bilal' , "bilal.shaikh@s4scorp.com" , 'test@gmail.cmo' , 'zyx.com' , "hello dear ");
 
-        return view('admin.users.delete', compact('users'));
+        return view('admin.users.delete', ['users'=>$users]);
 }
 
     public function rejectDomain(Request $req){
