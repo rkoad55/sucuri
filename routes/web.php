@@ -9,6 +9,7 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('auth.login');
 Route::post('login', 'Auth\LoginController@login')->name('auth.login');
 Route::get('logout', 'Auth\LoginController@logout')->name('auth.logout');
 
+Route::get('admin.zones.create' , 'Admin\UsersController@updateReseller')->name('admin.zones.create');
 Route::get('sso', 'Auth\SSOController@ssologin');
 
 // Change Password Routes...
@@ -234,7 +235,7 @@ Route::get('{zone}/white/removewhite/rr','Admin\DnsController@removewhite');
 Route::get('/removewhite/rr','Admin\DnsController@removewhite');
 
 Route::get('{zone}/black/{ip}','Admin\DnsController@blackip');
-
+ 
 Route::get('{zone}/black/removeblack/rr','Admin\DnsController@removeblack');
 Route::get('/removeblack/rr','Admin\DnsController@removeblack');
 

@@ -9,7 +9,7 @@
                     
                    <a href="{{ url('/') }}" class="user-edit"><img style="width: 150px; " src="{{asset('images/bd-logo-white.png')}}" alt="user-image" ></a>
                 </div>
-        <br>
+
                 <h5><a href="javascript: void(0);">
                     <?php
                                             $user_id=auth()->user()->id;
@@ -97,13 +97,13 @@
                 </a>
             </li>
 
-            <li>
+            {{-- <li>
                 <a id="anchor" href="{{ url('logout') }}" >
                     <i class="fe-log-out"></i> &nbsp;
                     <span style="padding-left: 8px;" class="title">@lang('global.app_logout')</span>
                     <span class="pull-right-container"></span>
                 </a>
-            </li>
+            </li> --}}
             <li>&nbsp;</li>
             <li>&nbsp;</li>
            <li>

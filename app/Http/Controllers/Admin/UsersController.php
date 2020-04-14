@@ -578,8 +578,48 @@ public function deleteUsers( Request $req)
     {  if (! Gate::allows('users_manage')) {
             return abort(401);
         }
+
+        $sucuri_usersss = DB::table('sucuri_user')->where('id', $req->id)->get();
+        foreach($sucuri_usersss as $cf){
+            $named = $cf->url;
+        } 
+         $named = $cf->url;
+        //die();
+
+        $curl = curl_init();
+        $auth_data = array(
+        'k'         => '7302b26beb3438873cf29499591358fc',
+        'a'=>  'delete_site',
+        'domain'=>  $named,
+        'format'=>  'json'
+        
+        );
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $auth_data);
+        curl_setopt($curl, CURLOPT_URL, 'https://waf.sucuri.net/api?v2');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        $result = curl_exec($curl);
+        if(!$result){die("Connection Failure");}
+        curl_close($curl);
+        //$result1 = utf8_encode($result);
+        //$result2 =json_decode($result1);
+        //$result=array($result);$result = json_decode($result , true);
+        $result = json_decode($result , true);
+        $message="";
+        $index=0;
+        foreach($result as $ok => $data)
+        {   $index++;
+            if($index == 3){
+                foreach ($data as $message) {
+                    $this->message= $message;
+                }
+            }
+        }
+
+
          DB::delete('delete from sucuri_user where id = ?',[$req->id]);
-         $users = DB::table('sucuri_user')->where(['active' => '0', 'active' => '2'])->get();
+         $users = DB::table('sucuri_user')->where('active' , '0')->orwhere('active' , '2')->get();
          $data = "Domain Deleted.";
        //return view('admin.users.delete', compact('users','data'));
 //return "ok";
@@ -592,6 +632,45 @@ public function deleteUsers( Request $req)
           
         if($req->delete == "delete" ){ 
 
+         
+
+         $sucuri_usersss = DB::table('sucuri_user')->where('id', $id)->get();
+         foreach($sucuri_usersss as $cf){
+             $named = $cf->url;
+         } 
+           $named ;
+        
+ 
+         $curl = curl_init();
+         $auth_data = array(
+         'k'         => '7302b26beb3438873cf29499591358fc',
+         'a'=>  'delete_site',
+         'domain'=>  $named,
+         'format'=>  'json'
+         
+         );
+         curl_setopt($curl, CURLOPT_POST, 1);
+         curl_setopt($curl, CURLOPT_POSTFIELDS, $auth_data);
+         curl_setopt($curl, CURLOPT_URL, 'https://waf.sucuri.net/api?v2');
+         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+         curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+         $result = curl_exec($curl);
+         if(!$result){die("Connection Failure");}
+         curl_close($curl);
+         //$result1 = utf8_encode($result);
+         //$result2 =json_decode($result1);
+         //$result=array($result);$result = json_decode($result , true);
+         $result = json_decode($result , true);
+         $message="";
+         $index=0;
+         foreach($result as $ok => $data)
+         {   $index++;
+             if($index == 3){
+                 foreach ($data as $message) {
+                     $this->message= $message;
+                 }
+             }
+         }
          DB::delete('delete from sucuri_user where id = ?',[$id]);
          $users = DB::table('sucuri_user')->where('id' , $id)->get();
          $data = "Domain Deleted.";

@@ -711,7 +711,7 @@ h2.subtitle {
 
 .main-sidebar,
 .left-side {
-    position: absolute;
+    position: fixed;
     top: -80px;
     left: 0;
     min-height: 705px;

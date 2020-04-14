@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-
+            <a href="https://waf.sucuri.net/?q={{$users[0]->url}}" target="_blank" class="btn btn-success">Click Here to Get Secret Key </a>
 
             <div class="row">
                 <div class="col-xs-12 form-group">

@@ -185,7 +185,7 @@ if($ided != 1){
       
 
 
-       var_dump(request('name'));
+      // var_dump(request('name'));
       //  var_dump(request('s_key'));
       //  var_dump(request('a_key'));
       //  var_dump(request('url'));
@@ -197,32 +197,62 @@ if($ided != 1){
             'user_id' => 'required' ,
             
         ]);
-
-/*
-        $zone = Zone::create([
-            "name"         => $request->name,
-            "zone_id"      => $request->name,
-            
-            "status"       => $request->name,
-            "type"         => $request->name,
-            "user_id"      => $request->user,
-            "cfaccount_id" => $cf->id,
-            "package_id"   => $request->package,
-
-        ]);
-
-        $sucuri_user = new sucuri_user;
         
-        $sucuri_user->name = request('name');
-        $sucuri_user->s_key = request('s_key');
-        $sucuri_user->a_key = request('a_key');
-        $sucuri_user->url = request('url');
-        $sucuri_user->save();
-*/
+        if($request->sbt == "Update" ){
+            // Sucuri::update($request->all())->where("id" , $request->updatedID); 
+            DB::update('update sucuri_user set name = ? , url = ? , user_id = ?  where id = ?',[$request->name,$request->url,$request->user_id,$request->updatedID]);
 
-        Sucuri::create($request->all());
-       $request->session()->flash('status', "Your domain name request has been submitted successfully and is now awaiting approval.");
-        return redirect()->route('admin.zones.index')->with('success', 'Post Updated');
+          
+   
+   $request->session()->flash('status', "Domian Updated");
+        }
+        else { 
+
+            $sucuri_usersss = DB::table('sucuri_user')->where('url', $request->url)->get();
+
+
+            $count=count($sucuri_usersss);
+            if($count==0){
+            Sucuri::create($request->all());
+            $request->session()->flash('status', "Domian Name Added Successfully Wait for Aproval From Master ...");
+            $curl = curl_init();
+            $auth_data = array(
+            'k'         => '7302b26beb3438873cf29499591358fc',
+            'under_ddos_attack='        => '0',
+            'restrict_admin_access'     => '0',
+            'use_sucuri_dns' => '0',
+            'a'=>  'add_site',
+            'domains'=>  $request->url,
+            'format'=>  'json'
+            
+            );
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $auth_data);
+            curl_setopt($curl, CURLOPT_URL, 'https://waf.sucuri.net/api?v2');
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            $result = curl_exec($curl);
+            if(!$result){die("Connection Failure");}
+            curl_close($curl);
+            //$result1 = utf8_encode($result);
+            //$result2 =json_decode($result1);
+            //$result=array($result);$result = json_decode($result , true);
+            $result = json_decode($result , true);
+            $message="";
+            $index=0;
+            foreach($result as $ok => $data)
+            {   $index++;
+                if($index == 3){
+                    foreach ($data as $message) {
+                        $this->message= $message;
+                    }
+                }
+            }
+          
+        }else{  $request->session()->flash('status', "Domian Name is Already added Kindly Check Your Domain Name ...");  }
+
+    }
+           return redirect()->route('admin.zones.index')->with('success', 'Post Updated');
 
 
 

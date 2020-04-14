@@ -176,14 +176,7 @@ else{
 
       
 
-                    <li {{{ (Request::is('*/seo') ? 'class=active' : '') }}} {{{ (Request::is('*/addsite') ? 'class=active' : '') }}} {{{ (Request::is('*/deletesite') ? 'class=active' : '') }}}>
-                        <a id = "anchor" href="{{action('Admin\ZoneController@seo',Request::segment(2))}}">
-                            <span class="icon"><i class="fas fa-globe"></i> </span>
-                            <span  style="padding-left: 10px;" class="title"> Add/Delete Site</span>
-                            <span class="pull-right-container"></span>
-
-                        </a>
-                    </li>
+                  
             
 
 
