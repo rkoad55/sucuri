@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-xs-12 form-group" style="width: 100% !important">
                     {!! Form::label('s_key', 'Secret Key*', ['class' => 'control-label']) !!}
-                    {!! Form::text('s_key', $users[0]->s_key, ['class' => 'form-control', 'id'=>"s_key", 'placeholder' => '', 'required' => '']) !!}
+                    {!! Form::text('s_key', $users[0]->s_key, ['class' => 'form-control', 'id'=>"s_key", 'placeholder' => '', 'required' => '','minlength'=>'32','maxlength'=>'32']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('s_key'))
                         <p class="help-block">
@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-            <a href="https://waf.sucuri.net/?q={{$users[0]->url}}" target="_blank" class="btn btn-success">Click Here to Get Secret Key </a>
+            <a href="https://waf.sucuri.net/?settings&site={{$users[0]->url}}&panel=api" target="_blank" class="btn btn-success">Click Here to Get Secret Key </a>
 
             <div class="row">
                 <div class="col-xs-12 form-group">
@@ -104,7 +104,7 @@
            </div>
            </div>
            <input type="hidden" name="user_id" value="<?= auth()->user()->id ?>">
-    {!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger']) !!}
+    {!! Form::submit('Add & Save', ['class' => 'btn btn-success']) !!}
     {!! Form::close() !!}
 @stop
 

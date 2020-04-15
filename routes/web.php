@@ -229,10 +229,19 @@ Route::resource('packages', 'Admin\PackageController');
 //Route::view("ok",'admin/1/analytics');
 //Route::get('{zone}/analytics','Admin\DnsController@index');
 //Route::get('{zone}/analytics','Admin\AnalyticsController@ip');
+// Route::get('{zone}/white/{ip}','Admin\DnsController@whiteip');
+// Route::get('{zone}/white/removewhite/rr','Admin\DnsController@removewhite');
+
+// Route::get('/removewhite/rr','Admin\DnsController@removewhite');
+
+
+
 Route::get('{zone}/white/{ip}','Admin\DnsController@whiteip');
-Route::get('{zone}/white/removewhite/rr','Admin\DnsController@removewhite');
+Route::get('{zone}/removewhite/rr','Admin\DnsController@removewhite');
 
 Route::get('/removewhite/rr','Admin\DnsController@removewhite');
+
+
 
 Route::get('{zone}/black/{ip}','Admin\DnsController@blackip');
  

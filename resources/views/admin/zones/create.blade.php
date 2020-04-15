@@ -24,7 +24,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group" style="width: 100%;">
-                    {!! Form::label('name', 'Name (domain name)*', ['class' => 'control-label']) !!}
+                    {!! Form::label('name', 'Domain Name*', ['class' => 'control-label']) !!}
                     {!! Form::text('name', "$name", ['class' => 'form-control', 'id'=>"zName", 'placeholder' => '', 'required' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('name'))
@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-xs-12 form-group" style="width: 100%;">
                     {!! Form::label('url', 'Domain URL*', ['class' => 'control-label']) !!}
-                    {!! Form::text('url', $url, ['class' => 'form-control', 'id'=>"url", 'placeholder' => '', 'required' => '']) !!}
+                    {!! Form::text('url', $url, ['class' => 'form-control', 'id'=>"url", 'placeholder' => 'site.com', 'required' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('url'))
                         <p class="help-block">

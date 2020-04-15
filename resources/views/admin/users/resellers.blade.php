@@ -22,6 +22,7 @@
 
                         <th>@lang('global.users.fields.name')</th>
                         <th>@lang('global.users.fields.email')</th>
+                        <th>Domains</th>
                         
                         <th>&nbsp;</th>
 
@@ -40,8 +41,23 @@
 
                                 <td>{{ $val->name }}</td>
                                 <td>{{ $val->email }}</td>
-                                
-                               
+                                <td>
+                                    <?php
+                                    // echo $val->id;
+                                    $users  = DB::table('sucuri_user')->where('user_id',$val->id)->where('active',1)->get();
+                                // dump($users->name); 
+                                foreach($users as $user){
+                                // // return "$user->name";
+                                $s_key = "$user->s_key";
+                                $a_key= "$user->a_key";
+                                $url = "$user->url";
+                                $id = "$user->id";
+                                echo "<p class = 'btn btn-xs btn-dark'>$url</p> <br>";
+                                }
+
+?>
+                                </td>
+
                                 <td>
                                     <center>
                                     <div style="">

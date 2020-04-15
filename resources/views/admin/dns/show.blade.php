@@ -65,10 +65,30 @@ $results=json_decode($ok);
                 <tr>
                     
                     <td><b>White Listed IP Address:</b></td>
+                    
+                    
 
                     <td>
-                        @foreach ($results->output->whitelist_list as $result) <a href="white/{{ $result }}"> <b>  {{ print_r($result)}}</b></a> <br>  @endforeach
+                        <form method="get" action="removewhite/rr">
+
+                        @foreach ($results->output->whitelist_list as $result)  <b>  {{ print_r($result)}}</b> 
+                        <input type="hidden" value="<?php echo auth()->user()->id; ?>" name = "id">
+
+                        <input type="hidden" name = "remove" value="{{ $result }}">
+                        
+                        <button type="submit" class="btn btn-danger" name="submit"><i class="dripicons-trash"></i></button>
+                    
+                    </form>
+                        @endforeach
+                        
+                        
                     </td>   
+                    <?php
+                    if(isset($_GET['submit'])){
+                        $id= $_GET['id'];
+                        $remove = $_GET['remove'];
+                    }
+                    ?>
                 </tr>
 
                 <tr>

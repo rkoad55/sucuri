@@ -90,17 +90,18 @@ $date = "";
   
 
 
-  // if (!$conn) {
-// die("Connection failed: ".mysqli_connect_error()));
-// }
+  
+
 $servername = env('DB_HOST');
               $username = env('DB_USERNAME');
               $password = env('DB_PASSWORD');
               $dbname = env('DB_DATABASE');
 
-              $conn = mysqli_connect($servername, $username, $password, $dbname);
+              $conn = new mysqli($servername, $username, $password, $dbname);
     
-
+              if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
   $query1 = "SELECT * FROM audit_trails WHERE domain_id = $domain_id  and time = '$time' and ip = '$ip' ";
   $result1 = mysqli_query($conn, $query1);
   $check1 = mysqli_num_rows($result1);
@@ -115,8 +116,18 @@ $servername = env('DB_HOST');
 // die();
   ?>
                 @endfor
+                <?php $counterBlue = 0;?>
     <?php 
-    
+    $servername = env('DB_HOST');
+    $username = env('DB_USERNAME');
+    $password = env('DB_PASSWORD');
+    $dbname = env('DB_DATABASE');
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+  }
     $query2 = "SELECT * FROM audit_trails WHERE date = '$date'";
               $result2 = mysqli_query($conn, $query2);
               $counter2 = 0;
@@ -270,8 +281,9 @@ $servername = env('DB_HOST');
     echo "0 results";
 }
 
-mysqli_close($conn);
+
 $blocked = $counter2 - $counterBlue;
+//$blocked = $counter2 ;
 
 ?>
 

@@ -28,9 +28,6 @@ if($ided == 1){
  <a href="{{ route('admin.resellers.create') }}" class="btn btn-success">Add New Reseller </a>
 <?php } ?>
     </p>
-    <p>
-       
-    </p>
 
     <div class="panel panel-default" style="background: white;">
         <div class="panel-heading">
@@ -55,14 +52,19 @@ $sucuri_userss = DB::table('brandings')
    } 
 
 ?>
+
+    <div class="alert alert-success" role="alert" id="pending" style="display: none;">
+        <span style="color: white;">This domain is pending approval at the moment.</span>       
+    </div>
+
         <div class="panel-body table-responsive">
             <table class="table table-bordered table-striped {{ count($sucuri_user) > 0 ? 'datatable' : '' }}">
                 <thead>
                     <tr>
-                        
+                         
                         <th>Domain Name</th>
                         <th>Domian Url</th>
-                        <th>Reseller Name</th>
+                        <th>UserName</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -72,17 +74,24 @@ $sucuri_userss = DB::table('brandings')
                 <?php  $i++;  ?>
                 <input type="hidden" name="id" value="{{ $sucuri_users->id }}" />
                             <tr data-entry-id="{{ $sucuri_users->id }}">
-                                <td><a href=" @if ($sucuri_users->s_key != null) {{ $sucuri_users->id }}/overview  @else @endif ">{{ $sucuri_users->name }}</a></td>
-                                <td><a href="@if ($sucuri_users->s_key != null) {{ $sucuri_users->id }}/overview  @else @endif" class="btn btn-info">{{ $sucuri_users->url }}</a>
+                                <td>
+                                    @if($sucuri_users->s_key != null)
+                                        <a href=" @if ($sucuri_users->s_key != null) {{ $sucuri_users->id }}/overview  @else @endif ">{{ $sucuri_users->name }}</a>
+                                    @else
+                                        <a href="#" id="pending" onclick="pending();">{{ $sucuri_users->name }}</a>
+                                    @endif
                                 </td>
-                               
+                                
+                                <td>
+                                @if($sucuri_users->s_key != null)
+                                    <a href="@if ($sucuri_users->s_key != null) {{ $sucuri_users->id }}/overview  @else @endif" class="btn btn-info">{{ $sucuri_users->url }}</a>
+                                    @else
+                                        <a href="#" class="btn btn-info" id="pending" onclick="pending();">{{ $sucuri_users->url }}</a>
+                                    @endif
+                                </td>
                                 <td>
                                     <?php 
-    $idede= $sucuri_users->user_id;
- $sucuri_usersss = DB::table('brandings')->where('user_id', $idede)->get();
- foreach($sucuri_usersss as $cf){
-   echo  $named = $cf->name;
- } 
+
                                     ?>                                    
                                 </td> 
                                 <td>
@@ -137,6 +146,12 @@ if(checklimit > 0){
         $('#domain').css('display' , 'none' );
     }
 }
+</script>
+<script type="text/javascript">
+    
+    function pending(){
+        $('#pending').css('display' , 'block');
+    }
 </script>
 @stop
 
