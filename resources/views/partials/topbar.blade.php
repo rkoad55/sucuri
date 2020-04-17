@@ -178,10 +178,19 @@
                                 </div>
                                 <br>
                                 <!-- item-->
+
+<?php if($user_id==1){ ?>
                                 <a href="/my_account" style="color: black" class="dropdown-item notify-item">
                                     <i class="fe-user"></i>
                                     <span>My Account</span>
                                 </a>
+
+<?php }else{ ?>
+                                <a href="{{action('Admin\UsersController@manage',Request::segment(2))}}" style="color: black" class="dropdown-item notify-item">
+                                    <i class="fe-user"></i>
+                                    <span>My Account</span>
+                                </a>
+<?php } ?>
 {{--     
                                 <!-- item-->
                                 <a href="javascript:void(0);" style="color: black" class="dropdown-item notify-item">

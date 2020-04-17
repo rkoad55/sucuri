@@ -7,8 +7,43 @@
         <center>
             <div class="user-box" id = "sidebar">
                 <div class="user-img">
-                    
-                   <a href="{{ url('/') }}" class="user-edit"><img style="width: 150px; " src="{{asset('images/bd-logo-white.png')}}" alt="user-image" ></a>
+                  
+
+                @if(auth()->user()->id!=1)
+
+<?php            
+
+$id = auth()->user()->id;
+$user  = DB::table('brandings')->where('user_id',$id)->get();
+
+echo $image= $user[0]->logo;
+
+?> 
+
+
+
+@if($image==null)
+<a href="/admin/home">  <img style="width: 150px; " src="{{ asset("images/bd-logo-white.png") }}" alt="BlockDos" > </a>
+
+@else
+<a href="/admin/home">  <img  style="width: 150px; " src="{{ asset('images/') }}/<?php echo $image; ?>" alt="BlockDos" ></a>
+@endif
+
+@else
+
+<a href="/admin/home">  <img style="width: 150px; " src="{{ asset("images/bd-logo-white.png") }}" alt="BlockDos" > </a>
+
+
+@endif
+
+
+
+                  
+
+                     
+
+
+
                 </div>
         <br>
                 <h5><a href="javascript: void(0);">
@@ -40,7 +75,7 @@
             <br>
 
             <li {{{ (Request::is('*/overview') ? 'class=active' : '') }}}>
-                        <a id = "anchor" href="overview">
+                        <a id = "anchor" href="{{action('Admin\ZoneController@show',Request::segment(2))}}">
                             <span   class="icon"><i class="fas fa-bars"></i> </span>
                             <span style="padding-left: 16px;" class="title"> Overview</span>
                             <span class="pull-right-container"></span>

@@ -33,7 +33,7 @@ class UsersController extends Controller
 
         $us = User::where('owner', 1)->get();
         $users = array();
-        // dd($users);
+         //dd($users);
         foreach ($us as $key => $value) {
             # code...
             if($value->branding !=null){
@@ -56,16 +56,16 @@ class UsersController extends Controller
         }
 
         
-
-        $us = User::where('owner', 1)->get();
+        $us  = DB::table('brandings')->get();
+       // $us = User::where('owner', 1)->get();
         $users = array();
-        // dd($users);
+        // dd($us->branding);
         $pckgID = 0;
-        foreach ($us as $key => $value) {
+        foreach ($us as  $value) {
             # code...
-            if($value->branding !=null){
+            if($value->pckg_detail !=null){
                 $users[]= $value;  
-  $pckgID = $value->branding->pckg_detail;
+                $pckgID = $value->pckg_detail;
                 $domain =DB::table('packages')->where('id',$pckgID)->get();
                 $domains[] = $domain[0]->domains;
             }
@@ -138,6 +138,19 @@ mail($to_email,$subject,$message,$headers);
         return view('admin.users.delete', ['users'=>$users]);
 }
 
+
+
+public function manage(){
+    $id = auth()->user()->id;
+
+        $user  = DB::table('brandings')->where('user_id',$id)->get();
+ 
+        // dd($user[0]);
+
+return view('admin.users.editResellar', compact('user'));
+}
+
+
     public function rejectDomain(Request $req){
         // dd($req->id); 
 if (! Gate::allows('users_manage')) {
@@ -151,14 +164,16 @@ if (! Gate::allows('users_manage')) {
             return redirect()->route('admin.pending')->with( [ 'data' => $data ] );
     }
 
-public function updateLogo(Request $req){
- if (! Gate::allows('users_manage')) {
-            return abort(401);
-        }
-        DB::table('brandings')->where('id',$req->id)->update([ 'logo' => '' ]);
-        $user  = DB::table('brandings')->where('user_id',$id)->get();
-        return view('admin.users.edit', compact('users'));              
-}
+    public function updateLogo(Request $req){ 
+        if (! Gate::allows('users_manage')) {
+                   return abort(401);
+               } 
+               DB::table('brandings')->where('user_id',$req->id)->update([ 'logo' => '' ]);
+               $user  = DB::table('brandings')->where('user_id',$req->id)->get();
+               // dd($user);  
+               // return view('admin.users.edit', ['user'=> $user[0]]);
+               return redirect()->route('admin.users.edit',[$user[0]->user_id]);              
+       }
 
 public function pending()
     {
@@ -185,9 +200,7 @@ public function pending()
  public function updatemanage(Request $req)
 {
     # code...  
-    if (! Gate::allows('users_manage')) {
-            return abort(401);
-        }
+    
     $id = auth()->user()->id;
 // dd($req->image);
         

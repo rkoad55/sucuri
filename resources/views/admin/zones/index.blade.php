@@ -91,9 +91,13 @@ $sucuri_userss = DB::table('brandings')
                                 </td>
                                 <td>
                                     <?php 
-
+    $idede= $sucuri_users->user_id;
+ $sucuri_usersss = DB::table('brandings')->where('user_id', $idede)->get();
+ foreach($sucuri_usersss as $cf){
+   echo  $named = $cf->name;
+ } 
                                     ?>                                    
-                                </td> 
+                                </td>  
                                 <td>
                                     @if($ided ==1)
                                     <form action="{{route('admin.zones.create')}}" method="get">  

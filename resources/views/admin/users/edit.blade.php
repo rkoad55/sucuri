@@ -3,12 +3,13 @@
 @section('content')
     <h3 class="page-title">Edit Reseller</h3>
     
-    {!! Form::model($user, ['method' => 'PUT', 'route' => ['admin.users.update', $user->id]]) !!}
-
+    {!! Form::model($user, ['enctype'=>'multipart/form-data', 'route' => ['admin.users.update', $user->user_id]]) !!}
+    
+    {{Form::hidden('_method','PUT')}}
     <div class="panel panel-default" style="background: white">
         <div class="panel-heading">
            
-        </div>
+        </div> 
 
         <div class="panel-body" style="width: 100%;">
             <div class="row">
@@ -63,10 +64,22 @@
                         @endforeach
                     </select>
                     
-                </div>
+                </div>	
             </div>
 
-     
+     		<div class="row">  
+     			@if($branding->logo!=null)
+     			<div class="col-xs-12 form-group" style="width: 100%;">
+     				<label class="control-label"><a href="{{ url('/user.defaultLogo.'.$branding->user_id)}}" >Default Logo</a></label> 
+     				<div> 
+     					<label class="control-label">Logo</label><br>
+     					<img src="/images/{{$branding->logo}}" width="20%" height="30%" />
+     				</div>
+     			</div>
+     			@else
+     				<div class="col-xs-12 form-group" style="width: 100%;"><label class="control-label">used default logo</label></div>
+     			@endif
+     		</div>
 
             <div class="row">
                 <div class="col-xs-12 form-group" style="width: 100%;">

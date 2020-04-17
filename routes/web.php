@@ -84,7 +84,7 @@ Route::get('resellers/createPckg', 'Admin\PackageController@manage')->name('rese
 
 
     Route::get('{zone}/overview', 'Admin\ZoneController@show');
-    Route::get('{zone}/overview', 'Admin\ZoneController@pending');
+    //Route::get('{zone}/overview', 'Admin\ZoneController@pending');
     Route::get('{zone}/crypto', 'Admin\ZoneController@crypto');
     Route::get('{zone}/performance', 'Admin\ZoneController@performance');
     Route::get('{zone}/caching', 'Admin\ZoneController@caching');
@@ -285,13 +285,13 @@ Route::get('clear_cache/{id}','Admin\AddSSLController@clearCache');
 Route::get('AuditTrails/{id}','Admin\SucuriController@auditTrails');
 Route::get('reports/{id}','Admin\SucuriController@reports');
 
-Route::get('AuditTrails/{id}','Admin\SucuriController@auditTrails');
+//Route::get('AuditTrails/{id}','Admin\SucuriController@auditTrails');
 Route::get('reports/{id}','Admin\SucuriController@reports');
 
 Route::get('trails/{id}','Admin\SucuriController@auditTrails');
 // Route::get('admin/{zone}/reportsettings', 'Admin\ZoneController@reportsettings');
 
-
+Route::get('user.defaultLogo.{id}', 'admin\userscontroller@updatelogo')->name('user.defaultlogo.{id}'); 
 
 // Auth::routes(); 
 // Route::get('/home',  'HomeController@index')->name('home');

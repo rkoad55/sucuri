@@ -6,8 +6,34 @@
         <center>
             <div class="user-box" id = "sidebar">
                 <div class="user-img">
-                    
-                   <a href="{{ url('/') }}" class="user-edit"><img style="width: 150px; " src="{{asset('images/bd-logo-white.png')}}" alt="user-image" ></a>
+                   
+                @if(auth()->user()->id!=1)
+
+<?php            
+
+$id = auth()->user()->id;
+$user  = DB::table('brandings')->where('user_id',$id)->get();
+
+ $image= $user[0]->logo;
+
+?> 
+
+
+
+@if($image==null)
+<a href="/admin/home">  <img style="width: 150px; " src="{{ asset("images/bd-logo-white.png") }}" alt="BlockDos" > </a>
+
+@else
+<a href="/admin/home">  <img  style="width: 150px; " src="{{ asset('images/') }}/<?php echo $image; ?>" alt="BlockDos" ></a>
+@endif
+
+@else
+
+<a href="/admin/home">  <img style="width: 150px; " src="{{ asset("images/bd-logo-white.png") }}" alt="BlockDos" > </a>
+
+
+@endif
+
                 </div>
 
                 <h5><a href="javascript: void(0);">

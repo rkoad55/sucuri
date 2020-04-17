@@ -56,7 +56,7 @@ $results=json_decode($ok);
 
   					<!-- 	<span>Enter Duration In Second (<sub>When you not enter duration so minimum time is 3 hours</sub>)</span> 
   						<input type="text" name="time" class="form-control" required="" /> <br> -->
-  						<input type="submit" value="ADD" class="btn btn-success" /><br><br>
+  						<input type="submit" value="ADD" class="btn btn-primary" /><br><br>
 					</form>                          
 
                             <h4>IPs</h4>
@@ -69,15 +69,23 @@ $results=json_decode($ok);
                     
 
                     <td>
-                        <form method="get" action="removewhite/rr">
 
-                        @foreach ($results->output->whitelist_list as $result)  <b>  {{ print_r($result)}}</b> 
+                        @foreach ($results->output->whitelist_list as $result)   
+                        <form method="get" action="removewhite/rr">
+                                <table >
+                                    <td style="border:none;width: 200px;">
+                                    
+                            <b >  {{ print_r($result)}}</b>
+
+                        </td>
                         <input type="hidden" value="<?php echo auth()->user()->id; ?>" name = "id">
 
                         <input type="hidden" name = "remove" value="{{ $result }}">
-                        
-                        <button type="submit" class="btn btn-danger" name="submit"><i class="dripicons-trash"></i></button>
-                    
+                        <td style="border:none;width: 200px;">
+
+                        <button type="submit" class="btn btn-xs btn-danger" name="submit"><i class="dripicons-trash"></i></button>
+                    </td>
+                </table>
                     </form>
                         @endforeach
                         
@@ -96,14 +104,38 @@ $results=json_decode($ok);
                     <td><b>Black Listed IP Address:</b> </td>
 
                     <td>
-                        @foreach ($results->output->blacklist_list as $result) <a href="black/{{ $result }}"> <b>  {{ print_r($result)}}</b></a> <br> @endforeach 
-                   </td>
+                        {{-- <td> --}}
+    
+                            @foreach ($results->output->blacklist_list as $result)   
+                            <form method="get" action="black/removeblack/rr">
+                                <table >
+                                    <td style="border:none;width: 200px;">
+                                <b>  {{ print_r($result)}}</b>
+                                    </td>
+                            <input type="hidden" value="<?php echo auth()->user()->id; ?>" name = "id">
+    
+                            <input type="hidden" name = "remove" value="{{ $result }}">
+                            <td style="border:none;width: 200px;">
+                            
+                            <button type="submit" class="btn btn-xs btn-danger" name="submit"><i class="dripicons-trash"></i></button>
+                            </td>
+                                </table>
+                        </form>
+                            @endforeach
+                            
+                            
+                        </td>   
+                        <?php
+                        if(isset($_GET['submit'])){
+                            $id= $_GET['id'];
+                            $remove = $_GET['remove'];
+                        }
+                        ?>
+
+                        {{-- @foreach ($results->output->blacklist_list as $result) <a href="black/{{ $result }}"> <b>  {{ print_r($result)}}</b></a> <br> @endforeach  --}}
+                   {{-- </td> --}}
                 </tr>
                 
-
-          
-
-           
             </tbody>
         </table>
 

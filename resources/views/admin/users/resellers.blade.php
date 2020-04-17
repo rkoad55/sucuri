@@ -32,10 +32,10 @@
                 <tbody>
                     @if (count($users) > 0)
                     
-                        @foreach ($users as $user => $val)
+                        @foreach ($users as $val)
 
                             @if($val->id!=1)
-                            <!-- @if($val->branding != null)  -->
+                           
                             <tr data-entry-id="{{ $val->id }}">
                                 <td></td>
 
@@ -44,9 +44,10 @@
                                 <td>
                                     <?php
                                     // echo $val->id;
-                                    $users  = DB::table('sucuri_user')->where('user_id',$val->id)->where('active',1)->get();
-                                // dump($users->name); 
-                                foreach($users as $user){
+                                    $users11  = DB::table('sucuri_user')->where('user_id',$val->user_id)->where('active',1)->get();
+                                // dump($users->name);
+                                //dd($users11);
+                                foreach($users11 as $user){
                                 // // return "$user->name";
                                 $s_key = "$user->s_key";
                                 $a_key= "$user->a_key";
@@ -62,12 +63,12 @@
                                     <center>
                                     <div style="">
                                     
-                                    <a href="{{ route('admin.users.edit',[$val->id]) }}" class="btn btn-info">@lang('global.app_edit')</a>
+                                    <a href="{{ route('admin.users.edit',[$val->user_id]) }}" class="btn btn-info">@lang('global.app_edit')</a>
                                     {!! Form::open(array(
                                         'style' => 'display: inline-block;',
                                         'method' => 'DELETE',
                                         'onsubmit' => "return confirm('".trans("global.app_are_you_sure")."');",
-                                        'route' => ['admin.users.destroy', $val->id])) !!}
+                                        'route' => ['admin.users.destroy', $val->user_id])) !!}
                                     {!! Form::submit(trans('global.app_delete'), array('class' => 'btn btn-danger')) !!}
                                     {!! Form::close() !!}
                                 </div>
@@ -75,7 +76,6 @@
                                 </td>
 
                             </tr>
-                            <!-- @endif -->
                             @endif
                         @endforeach
                     @else
