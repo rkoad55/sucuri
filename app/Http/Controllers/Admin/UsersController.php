@@ -494,12 +494,99 @@ public function pending()
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUsersRequest $request, $id)
+
+
+
+    public function getupdates(UpdateUsersRequest $request, $id)
     { 
-        // dd("ok");
-        if (! Gate::allows('users_manage')) {
+      // dd($id);
+//die('ok');
+       $user = User::findOrFail($id);
+        if ( $user->owner!= auth()->user()->id) {
             return abort(401);
         }
+      
+        $updated_data  = array('_method' => 'PUT',
+        '_token' => $request->_token,
+        'name' => $request->name,
+        'email'=> $request->email,
+        'password' => $request->password);
+
+$user->update($updated_data);
+
+if(isset($request->password))
+{
+//dd($request->password);
+$user->password_updated = 1; 
+$user->save();   
+}
+// dd($user->id);
+$show =0;
+$black=0;
+$add=0;
+$Cache=0;
+$audit=0;
+$Protected =0;
+$Reports = 0;
+if($request->Show_Setting){
+$show = 1;
+}
+if($request->BlackList){
+$black = 1;
+}
+if($request->Add_Delete_Site){
+$add = 1;
+}
+if($request->Clear_Cache){
+$Cache = 1;
+}
+if($request->Audit_Trails){
+$audit = 1;
+}
+if($request->Protected_Pages){
+$Protected = 1;
+}
+if($request->Reports_Settings){
+$Reports = 1;
+}
+
+DB::table('brandings')
+->where('user_id', $user->id)
+->update(['name'=>$request->name,  'sp' => $request->sp , 'pckg_detail' => $request->pckg ]);
+
+// dd($user->can("reseller_access"));
+foreach ($user->getAbilities() as $ability) {
+$user->forbid($ability->name);
+}
+
+//dd($request->input('abilities'));
+//
+
+if($request->input('abilities')!=null)
+{
+foreach ($request->input('abilities') as $ability) {
+$user->unforbid($ability);
+$user->allow($ability);
+}
+\Bouncer::refreshFor($user);
+}
+
+
+
+
+
+
+
+        return redirect()->route('admin.listResellers')->with('message','Reseller Updated.');
+    }
+
+
+    public function updates(UpdateUsersRequest $request, $id)
+    { 
+       dd("ok");
+
+       die();
+       
         $user = User::findOrFail($id);
         if ( $user->owner!= auth()->user()->id) {
             return abort(401);

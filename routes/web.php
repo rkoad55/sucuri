@@ -18,14 +18,17 @@ Route::patch('change_password', 'Auth\ChangePasswordController@changePassword')-
 
 Route::post('admin/updates1', 'Admin\UsersController@updatemanage')->name('admin.updates1');
     
+  
+
 Route::get('insertIp' , 'Admin\DnsController@addIp');   
 Route::get('my_account','HomeController@my_account');
 
 Route::get('admin.pacakge.destroy', 'Admin\PackageController@deletePckg')->name('admin.pacakge.destroy'); 
 
 Route::get('admin.pacakge.{id}.edit','Admin\PackageController@getDataById')->name('admin.pacakge.edit'); 
+Route::get('req/backToApproved/{id}', 'Admin\ZoneController@backToApproved')->name('req/backToApproved/{id}');
 // Route::post('admin/delete', 'Admin\UsersController@deleteUsers');  
- 
+//route::get('admin.pacakge.{id}.edit','admin\packagecontroller@getdatabyid')->name('admin.pacakge.edit');
 // Password Reset Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('auth.password.reset');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('auth.password.reset');
@@ -265,7 +268,7 @@ Route::get('/removeblack/rr','Admin\DnsController@removeblack');
       Route::get('{zone}/protect/ss','Admin\FirewallController@protecteddomain');
      
      
-     
+      Route::post('/users/{zone}/updates','Admin\UsersController@getupdates')->name('updates');  
      
      
      
@@ -291,7 +294,7 @@ Route::get('reports/{id}','Admin\SucuriController@reports');
 Route::get('trails/{id}','Admin\SucuriController@auditTrails');
 // Route::get('admin/{zone}/reportsettings', 'Admin\ZoneController@reportsettings');
 
-Route::get('user.defaultLogo.{id}', 'admin\userscontroller@updatelogo')->name('user.defaultlogo.{id}'); 
+Route::get('user.defaultLogo.{id}', 'Admin\UsersController@updatelogo')->name('user.defaultlogo.{id}'); 
 
 // Auth::routes(); 
 // Route::get('/home',  'HomeController@index')->name('home');

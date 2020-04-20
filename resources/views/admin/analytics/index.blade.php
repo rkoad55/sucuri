@@ -145,6 +145,7 @@ $result=json_decode($ok);
     });
     
 </script>
+
 <div class="row">
                 <div class="col-xs-12"  style="background: white; width: 100%;">
                     
@@ -429,7 +430,7 @@ $result=json_decode($ok);
     </div>
 </div>
 
-{!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger']) !!}
+{!! Form::submit(trans('global.app_save'), ['class' => 'btn btn-danger', 'onclick' => 'myFunction()']) !!}
 {!! Form::close() !!}
 
            
@@ -456,4 +457,9 @@ $result=json_decode($ok);
     <script>
         window.route_mass_crud_entries_destroy = '{{ route('admin.users.mass_destroy') }}';
     </script>
+    <script>
+        function myFunction() {
+          alert("Changes have been saved");
+        }
+        </script>
 @endsection

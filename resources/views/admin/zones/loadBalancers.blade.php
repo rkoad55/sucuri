@@ -23,7 +23,8 @@
 <br><br>
 @if(isset($message))
     <div class="alert alert-success" role="alert">
-        {{  $message }}
+      Your request has been submitted successfully. <br>Reports will be sent to you on the email you provided in a few days.  
+      {{-- {{  $message }} --}}
     </div>
     @endif
             {{-- For Error --}}

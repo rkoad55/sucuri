@@ -334,13 +334,15 @@ if(isset($results['hits']['hits']))
         
         //$zone =  $zoneObj = Zone::where('name',$zone)->first();
 
-        
+      $id=auth()->user()->id;
+       $sucuri_users;
 
          $sucuri_users;
 
-
-        $users  = DB::table('sucuri_user')->where('id',$sucuri_users)->get();
-        // dump($users->name); 
+if($id!=1){
+         $users  = DB::table('sucuri_user')->where('id',$sucuri_users)->where('user_id',$id)->get();
+         //dd($users);
+}else{  $users  = DB::table('sucuri_user')->where('id',$sucuri_users)->get();  }
          foreach($users as $user){
           // return "$user->name";
            $s_key = "$user->s_key";
@@ -461,17 +463,24 @@ if(isset($results['hits']['hits']))
     
     }
 	
-	 public function removewhite(Request $request)
+	 public function removewhite($sucuri_users,Request $request)
     {
-		$sucuri_users = $request->id;
+     $id = $request->id;
+     $sucuri_users;
+ 
 		$this->validate($request,[
             'remove' => 'required',
 			'id' => 'required'
         ]);
        $sucuri_users;
                                 //$users      = Sucuri::where('id',$sucuri_users)->get();
-                                $users  = DB::table('sucuri_user')->where('id',$sucuri_users)->get();
-                                // dump($users->name); 
+                                if($id!=1){
+                                  $users  = DB::table('sucuri_user')->where('id',$sucuri_users)->where('user_id',$id)->get();
+                                  //dd($users);
+                         }else{  $users  = DB::table('sucuri_user')->where('id',$sucuri_users)->get();  }
+                               //  dd($users);
+                                // echo "ok"; 
+                                 //die();
                                 foreach($users as $user){
                                 // return "$user->name";
                                 $s_key = "$user->s_key";
@@ -518,9 +527,12 @@ if(isset($results['hits']['hits']))
 		
 
 	
-	 
+if($id!=1){
+  $users1  = DB::table('sucuri_user')->where('id',$sucuri_users)->where('user_id',$id)->get();
+  //dd($users);
+}else{  $users1  = DB::table('sucuri_user')->where('id',$sucuri_users)->get();  }
 
-        $users1  = DB::table('sucuri_user')->where('id',$sucuri_users)->get();
+       // $users1  = DB::table('sucuri_user')->where('id',$id)->get();
         // dump($users->name); 
          foreach($users1 as $user){
           // return "$user->name";
@@ -581,16 +593,20 @@ if(isset($results['hits']['hits']))
     
     }
 	
-	public function removeblack(Request $request)
+	public function removeblack($sucuri_users,Request $request)
     {
-		$sucuri_users = $request->id;
+		 $id = $request->id;
+     $sucuri_users;
 		$this->validate($request,[
             'remove' => 'required',
 			'id' => 'required'
         ]);
        $sucuri_users;
                                 //$users      = Sucuri::where('id',$sucuri_users)->get();
-                                $users  = DB::table('sucuri_user')->where('id',$sucuri_users)->get();
+                                if($id!=1){
+                                  $users  = DB::table('sucuri_user')->where('id',$sucuri_users)->where('user_id',$id)->get();
+                                  //dd($users);
+                         }else{  $users  = DB::table('sucuri_user')->where('id',$sucuri_users)->get();  }
                                 // dump($users->name); 
                                 foreach($users as $user){
                                 // return "$user->name";
@@ -638,9 +654,12 @@ if(isset($results['hits']['hits']))
 		
 
 	
-	 
+if($id!=1){
+  $users1  = DB::table('sucuri_user')->where('id',$sucuri_users)->where('user_id',$id)->get();
+  //dd($users);
+}else{  $users1  = DB::table('sucuri_user')->where('id',$sucuri_users)->get();  }
 
-        $users1  = DB::table('sucuri_user')->where('id',$sucuri_users)->get();
+        //$users1  = DB::table('sucuri_user')->where('id',$sucuri_users)->get();
         // dump($users->name); 
          foreach($users1 as $user){
           // return "$user->name";

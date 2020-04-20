@@ -16,7 +16,7 @@
 $id = auth()->user()->id;
 $user  = DB::table('brandings')->where('user_id',$id)->get();
 
-echo $image= $user[0]->logo;
+ $image= $user[0]->logo;
 
 ?> 
 

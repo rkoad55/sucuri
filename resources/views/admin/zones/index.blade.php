@@ -75,8 +75,11 @@ $sucuri_userss = DB::table('brandings')
                 <input type="hidden" name="id" value="{{ $sucuri_users->id }}" />
                             <tr data-entry-id="{{ $sucuri_users->id }}">
                                 <td>
-                                    @if($sucuri_users->s_key != null)
+                                    @if($sucuri_users->active == 2)
+                                    	<a href="#">{{  $sucuri_users->name }}</a>
+                                    @elseif($sucuri_users->s_key != null)
                                         <a href=" @if ($sucuri_users->s_key != null) {{ $sucuri_users->id }}/overview  @else @endif ">{{ $sucuri_users->name }}</a>
+                                    
                                     @else
                                         <a href="#" id="pending" onclick="pending();">{{ $sucuri_users->name }}</a>
                                     @endif
@@ -129,6 +132,7 @@ $sucuri_userss = DB::table('brandings')
 {!! Form::close() !!}
 <?php } else {?>
    <a href="#" class="btn btn-danger">Delete In Progress</a>
+   <a href="/req/backToApproved/{{$sucuri_users->id}}" class="btn btn-success">Back To Approved/Pending</a>
    <?php } ?>  
                                 </td>
                             </tr>

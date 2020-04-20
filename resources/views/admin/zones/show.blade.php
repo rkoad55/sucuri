@@ -9,10 +9,10 @@ $result=json_decode($ok);
 //$messages = $result->messages;
  //print_r($result->output);  ?>
 <div class="row">
-                <div class="col-xs-12" style="background: white;">
+                <div class="col-xs-12" style="background: white; width: 100%">
                     
                     <div class="panel panel-success">
-                        <div class="panel-heading" ><h3 style="font-size: 20px !important; padding: 10px;"><b>{{$result->output->domain}}</b></h3></div>
+                        <div class="panel-heading" ><h3 style="font-size: 20px !important; padding: 15px;"><b>{{$result->output->domain}}</b></h3></div>
                         <div class="panel-body">
 
                             
@@ -29,7 +29,7 @@ $result=json_decode($ok);
                     @endif 
                      </td>
                     
-                    <td><b>White Listed Ip Address: </b>@foreach ($result->output->whitelist_list as $white) {{ print_r($white)}}  @endforeach</td>
+                    <td><b>White Listed IP Address: </b>@foreach ($result->output->whitelist_list as $white) {{ print_r($white)}}  @endforeach</td>
                    
 
                 </tr>
@@ -56,9 +56,9 @@ $result=json_decode($ok);
                 {{ print_r($debug)}}
                 @endforeach </td>
                 
-                <td><b>Advanced evasion: </b> {{$result->output->detect_adv_evasion}}</td>
+                <td><b>Advanced Evasion: </b> {{$result->output->detect_adv_evasion}}</td>
                 
-                <td><b>Aggressive bot filter: </b>  {{$result->output->aggressive_bot_filter}}</td>
+                <td><b>Aggressive Bot Filter: </b>  {{$result->output->aggressive_bot_filter}}</td>
             </tr>
 
             <tr>

@@ -423,8 +423,8 @@ select.form-control:focus {
 
 .panel-success>.panel-heading {
     color: #fff;
-    background-color: #00a65a;
-    border-color: #00a65a;
+    background-color: rgb(18, 166, 218);
+    border-color: rgb(18, 166, 218);
 }
 
 .panel-white {

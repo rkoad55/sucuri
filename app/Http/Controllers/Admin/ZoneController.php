@@ -118,6 +118,35 @@ if($ided != 1){
      * @return \Illuminate\Http\Response           Return View
      */
     
+
+    function backToApproved(Request $req){
+        $sucuri_suer = DB::table('sucuri_user')->where('id',$req->id)->get();
+        $s_key = $sucuri_suer[0]->s_key;
+        if(!empty($s_key) && $s_key != ""){
+        DB::table('sucuri_user')->where('id',$req->id)->update(['active' => '1' ]);
+        }
+        else{
+        DB::table('sucuri_user')->where('id',$req->id)->update(['active' => '0' , 's_key' => '' ]);
+        }
+        $sucuri_user = DB::table('sucuri_user')->get();
+        
+        $ided=auth()->user()->id;
+        
+        
+        if($ided != 1){
+        $sucuri_user = DB::table('sucuri_user')->where([['user_id' , $ided]])->get();
+        return view('admin.zones.index', ['sucuri_user'=>$sucuri_user]);
+        } else {
+        $sucuri_user = DB::table('sucuri_user')->get();
+        // dd($sucuri_user);
+        return view('admin.zones.index', ['sucuri_user'=>$sucuri_user]);
+        }
+        
+        }
+
+
+
+
     public function trashedZones(Request $request)
     {
         //

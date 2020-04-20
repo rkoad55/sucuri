@@ -3,9 +3,9 @@
 @section('content')
     <h3 class="page-title">Edit Reseller</h3>
     
-    {!! Form::model($user, ['enctype'=>'multipart/form-data', 'route' => ['admin.users.update', $user->user_id]]) !!}
-    
-    {{Form::hidden('_method','PUT')}}
+   <?php // echo // $user->id; ///$users11  = DB::table('sucuri_user')->where('user_id',$val->user_id)->where('active',1)->get();  ?>
+ <form action="updates" method="POST">
+ @csrf
     <div class="panel panel-default" style="background: white">
         <div class="panel-heading">
            
@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-xs-12 form-group" style="width: 100%;">
                     {!! Form::label('name', 'Name*', ['class' => 'control-label']) !!}
-                    {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    {!! Form::text('name', $user->name, ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
                     <p class="help-block"></p>
                     @if($errors->has('name'))
                         <p class="help-block">
@@ -28,13 +28,9 @@
                    <div class="row">
                 <div class="col-xs-12 form-group" style="width: 100%;">
                     {!! Form::label('email', 'Email*', ['class' => 'control-label']) !!}
-                    {!! Form::email('email', old('email'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    {!! Form::email('email', $user->email, ['class' => 'form-control', 'placeholder' => '', 'required' => '','readonly'=>'readonly']) !!}
                     <p class="help-block"></p>
-                    @if($errors->has('email'))
-                        <p class="help-block">
-                            {{ $errors->first('email') }}
-                        </p>
-                    @endif
+                 
                 </div>
             </div>
 
@@ -88,7 +84,7 @@
                     <p class="help-block"></p>
                     @if($errors->has('password'))
                         <p class="help-block">
-                            {{ $errors->first('password') }}
+                            {{ $errors->first('sp') }}
                         </p>
                     @endif
                 </div>
@@ -97,7 +93,8 @@
 </div>
 
 </div>
-{!! Form::submit(trans('global.app_update'), ['class' => 'btn btn-danger', 'onclick' => 'myFunction()']) !!}
+
+{!! Form::submit(trans('global.app_update'), ['class' => 'btn btn-danger']) !!} 
 {!! Form::close() !!}
 </div>
 
@@ -109,9 +106,7 @@
 
 </script>
 <script>
-    function myFunction() {
-        alert("Information Updated...!!!");
-    }
+   
 </script>
 @stop
 

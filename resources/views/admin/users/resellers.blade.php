@@ -3,6 +3,15 @@
 
 @section('content')
     <h3 class="page-title">Resellers</h3>
+
+
+    @if(isset($message))
+    <div class="alert alert-success" role="alert">
+        {{  $message }}
+    </div>
+    @endif
+
+
     <p>
         <a href="{{ route('admin.resellers.create') }}" class="btn btn-success">@lang('global.app_add_new')</a>
     </p>

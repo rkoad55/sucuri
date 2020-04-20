@@ -55,7 +55,7 @@
                         
 
                                 <td>{{ $val->name }}</td>
-                                <td>{{ $val->price }}</td>
+                                <td>Rs : {{ $val->price }}</td>
                                  <td>{{ $val->description }}</td>
                                  <td>{{ $val->domains }}</td>
                                  

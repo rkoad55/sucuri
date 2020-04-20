@@ -20,7 +20,7 @@ $results=json_decode($ok);
  @if(isset($message))
     <div class="alert alert-danger" role="alert">
         {{  $message }}
-		<meta http-equiv = "refresh" content = "1; url = /admin/{{$request->id}}/dns" />
+		<meta http-equiv = "refresh" content = "1; url = {{action('Admin\DnsController@index',Request::segment(2))}}" />
 
     </div>
     @endif

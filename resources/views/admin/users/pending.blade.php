@@ -45,7 +45,7 @@
                                 <td>
                                     <div style="">
                                     
-                                    <a href="update?id={{ $val->id}}" class="btn  btn-success">@lang('global.app_edit')</a>
+                                    <a href="update?id={{ $val->id}}" class="btn  btn-success">Approve</a>
                                     <a href="reject?id={{ $val->id}}" class="btn  btn-danger">Reject</a>
                                     {!! Form::open(array(
                                         'style' => 'display: inline-block;',
