@@ -74,8 +74,8 @@ $results=json_decode($ok);
                         <form method="get" action="removewhite/rr">
                                 <table >
                                     <td style="border:none;width: 200px;">
-                                    
-                            <b >  {{ print_r($result)}}</b>
+                                    <b>{{ $result }}</b>
+                           
 
                         </td>
                         <input type="hidden" value="<?php echo auth()->user()->id; ?>" name = "id">
@@ -110,7 +110,7 @@ $results=json_decode($ok);
                             <form method="get" action="black/removeblack/rr">
                                 <table >
                                     <td style="border:none;width: 200px;">
-                                <b>  {{ print_r($result)}}</b>
+                                    <b>{{ $result }}</b>
                                     </td>
                             <input type="hidden" value="<?php echo auth()->user()->id; ?>" name = "id">
     

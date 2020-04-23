@@ -10,6 +10,9 @@ Route::post('login', 'Auth\LoginController@login')->name('auth.login');
 Route::get('logout', 'Auth\LoginController@logout')->name('auth.logout');
 
 Route::get('admin.zones.create' , 'Admin\UsersController@updateReseller')->name('admin.zones.create');
+Route::get('admin.zones.create' , 'Admin\ZoneController@create')->name('admin.zones.create3');
+Route::get('admin.zones.created' , 'Admin\ZoneController@created')->name('admin.zones.created');
+Route::post('admin/zones/stored' , 'Admin\ZoneController@stored')->name('admin.zones.stored');
 Route::get('sso', 'Auth\SSOController@ssologin');
 
 // Change Password Routes...
@@ -30,6 +33,7 @@ Route::get('req/backToApproved/{id}', 'Admin\ZoneController@backToApproved')->na
 // Route::post('admin/delete', 'Admin\UsersController@deleteUsers');  
 //route::get('admin.pacakge.{id}.edit','admin\packagecontroller@getdatabyid')->name('admin.pacakge.edit');
 // Password Reset Routes...
+Route::get('admin/zones/{id}', 'Admin\ZoneController@backToApproved')->name('admin/zones/{id}'); 
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('auth.password.reset');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('auth.password.reset');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
@@ -51,7 +55,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     // Route::resource('spaccounts', 'Admin\SpaccountController');
     // Route::get('spaccounts/importZones/{spaccount}', 'Admin\SpaccountController@importZones');
     // Route::put('spaccounts/importZones/doImport', 'Admin\SpaccountController@doImport');
-    
+    Route::get('rejected', 'Admin\UsersController@rejectedRequestShow')->name('rejected');
     Route::post('abilities_mass_destroy', ['uses' => 'Admin\AbilitiesController@massDestroy', 'as' => 'abilities.mass_destroy']);
     Route::resource('roles', 'Admin\RolesController');
     Route::post('roles_mass_destroy', ['uses' => 'Admin\RolesController@massDestroy', 'as' => 'roles.mass_destroy']);
@@ -270,7 +274,7 @@ Route::get('/removeblack/rr','Admin\DnsController@removeblack');
      
       Route::post('/users/{zone}/updates','Admin\UsersController@getupdates')->name('updates');  
      
-     
+     // Route::get('/zones/stored' , 'Admin\ZoneController@stored')->name('stored');
      
      
      

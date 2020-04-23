@@ -56,6 +56,7 @@
                                     $users11  = DB::table('sucuri_user')->where('user_id',$val->user_id)->where('active',1)->get();
                                 // dump($users->name);
                                 //dd($users11);
+                                 $conut=count($users11);
                                 foreach($users11 as $user){
                                 // // return "$user->name";
                                 $s_key = "$user->s_key";
@@ -63,6 +64,19 @@
                                 $url = "$user->url";
                                 $id = "$user->id";
                                 echo "<p class = 'btn btn-xs btn-dark'>$url</p> <br>";
+                                }
+
+                                if($conut>5){
+
+?>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{$val->user_id}}">
+  View All Domains
+</button>
+
+<?php
+
+
                                 }
 
 ?>
@@ -92,7 +106,57 @@
                             <td colspan="9">@lang('global.app_no_entries_in_table')</td>
                         </tr>
                     @endif
-                </tbody>
+
+
+
+                    <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+@if (count($users) > 0)
+                    
+                    @foreach ($users as $val)
+
+                        @if($val->id!=1)
+<div class="modal fade" id="exampleModal{{$val->user_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">All Domains</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <?php
+                                    // echo $val->id;
+                                    $users11  = DB::table('sucuri_user')->where('user_id',$val->user_id)->where('active',1)->get();
+                                // dump($users->name);
+                                //dd($users11);
+                                 $conut=count($users11);
+                                foreach($users11 as $user){
+                                // // return "$user->name";
+                                $s_key = "$user->s_key";
+                                $a_key= "$user->a_key";
+                                $url = "$user->url";
+                                $id = "$user->id";
+                                echo "<p class = 'btn btn-xs btn-dark'>$url</p> <br>";
+                                }
+
+                               
+
+?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+                        @endforeach  
+                        @endif        </tbody>
             </table>
         </div>
     </div>

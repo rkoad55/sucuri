@@ -8,6 +8,11 @@
         {{  $message }}
     </div>
     @endif
+    @if(isset($messages))
+    
+    <meta http-equiv = "refresh" content = "0; url = {{action('Admin\ZoneController@index',Request::segment(2))}}" />
+    
+    @endif
             {{-- For Error --}}
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -21,10 +26,12 @@
 
                 <h3 class="page-title" style="font-size: 20px !important; padding: 10px;">All Sucuri Websites</h3>
     <p>
- <a href="{{ route('admin.zones.create') }}" class="btn btn-success">Add New  Domain</a>
+ <a href="{{ route('admin.zones.create3') }}" class="btn btn-success">Add New  Domain</a>
+ <a href="{{ route('admin.zones.created') }}" class="btn btn-success">Add Existing Domain</a>
  <?php $ided=auth()->user()->id; 
 if($ided == 1){
  ?>
+ 
  <a href="{{ route('admin.resellers.create') }}" class="btn btn-success">Add New Reseller </a>
 <?php } ?>
     </p>
@@ -103,7 +110,7 @@ $sucuri_userss = DB::table('brandings')
                                 </td>  
                                 <td>
                                     @if($ided ==1)
-                                    <form action="{{route('admin.zones.create')}}" method="get">  
+                                    <form action="{{route('admin.zones.create3')}}" method="get">  
                                         <input type="hidden" name="id" value="{{$sucuri_users->id}}">
                                         <input type="submit" class="btn btn-info" name="sbt" value="Update" style="display: inline;" />
                                     </form>
@@ -112,7 +119,7 @@ $sucuri_userss = DB::table('brandings')
 
                                 if ($sucuri_users->s_key != null) { ?>
 
-                                <button type="button" class="btn  btn-success">Aproved</button>
+                                <button type="button" class="btn  btn-success">Approved</button>
                                 <?php  } else if ($sucuri_users->active == 2) { ?>
                                     <button type="button" class="btn    btn-success">Deleted</button>
 

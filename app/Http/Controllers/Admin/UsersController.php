@@ -119,6 +119,18 @@ mail($to_email,$subject,$message,$headers);
         //     }
     }
 
+
+
+    public function rejectedRequestShow(){
+        if (! Gate::allows('users_manage')) {
+            return abort(401);
+        } 
+        $users = DB::table('sucuri_user')->where(['s_key' =>  null , 'active' => '2']  )->get();
+        return view('admin.users.rejected', compact('users'));
+
+    }
+
+
     public function delete(Request $req){
          if (! Gate::allows('users_manage')) {
             return abort(401);

@@ -72,6 +72,13 @@ $user  = DB::table('brandings')->where('user_id',$id)->get();
 
                 </a>
             </li>
+            <li class="{{ $request->segment(2) == 'zones' ? 'active' : '' }}">
+                <a id="anchor" href="{{ route('admin.zones.index') }}">
+                    <i class="far fa-user"></i>
+                    <span style="padding-left: 15px;" class="title">All Sucuri Accounts</span>
+                    <span class="pull-right-container"></span>
+                </a>
+            </li>
             @if(auth()->user()->id==1)
              <li class="{{ $request->segment(2) == 'resellers' ? 'active' : '' }}" >
                 <a  id="anchor" href="{{ route('admin.listResellers') }}" >
@@ -89,14 +96,12 @@ $user  = DB::table('brandings')->where('user_id',$id)->get();
                 </a> 
                 
             </li>
-            
-            <li class="{{ $request->segment(2) == 'pacakge' ? 'active' : '' }}">
-                <a id="anchor" href="{{ route('admin.pacakge') }}">
-                    <i class="fa fa-users"></i>
-                    <span style="padding-left: 8px;" class="title">Packages</span>
+            <li class="{{ $request->segment(2) == 'rejected' ? 'active' : '' }}">
+                <a id="anchor" href="{{ route('admin.rejected') }}">
+                    <i class="fas fa-landmark"></i>
+                    <span style="padding-left: 13px;" class="title">Rejected Request</span>
                     <span class="pull-right-container"></span>
-                </a> 
-                
+                </a>
             </li>
             <li class="{{ $request->segment(2) == 'delete' ? 'active' : '' }}">
                 <a id="anchor" href="{{ route('admin.delete') }}">
@@ -105,15 +110,18 @@ $user  = DB::table('brandings')->where('user_id',$id)->get();
                     <span class="pull-right-container"></span>
                 </a>
             </li>
+            <li class="{{ $request->segment(2) == 'pacakge' ? 'active' : '' }}">
+                <a id="anchor" href="{{ route('admin.pacakge') }}">
+                    <i class="fa fa-users"></i>
+                    <span style="padding-left: 8px;" class="title">Packages</span>
+                    <span class="pull-right-container"></span>
+                </a> 
+                
+            </li>
+           
             @endif
             
-            <li class="{{ $request->segment(2) == 'zones' ? 'active' : '' }}">
-                <a id="anchor" href="{{ route('admin.zones.index') }}">
-                    <i class="far fa-user"></i>
-                    <span style="padding-left: 15px;" class="title">All Sucuri Accounts</span>
-                    <span class="pull-right-container"></span>
-                </a>
-            </li>
+          
 
             <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
                 <a id="anchor" href="{{ route('auth.change_password') }}">

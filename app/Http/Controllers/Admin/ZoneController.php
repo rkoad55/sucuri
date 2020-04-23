@@ -123,25 +123,25 @@ if($ided != 1){
         $sucuri_suer = DB::table('sucuri_user')->where('id',$req->id)->get();
         $s_key = $sucuri_suer[0]->s_key;
         if(!empty($s_key) && $s_key != ""){
-        DB::table('sucuri_user')->where('id',$req->id)->update(['active' => '1' ]);
-        }
-        else{
-        DB::table('sucuri_user')->where('id',$req->id)->update(['active' => '0' , 's_key' => '' ]);
-        }
+            DB::table('sucuri_user')->where('id',$req->id)->update(['active' => '1' ]);
+        }            
+        else{    
+            DB::table('sucuri_user')->where('id',$req->id)->update(['active' => '1' , 's_key' => '' ]);
+        } 
         $sucuri_user = DB::table('sucuri_user')->get();
-        
-        $ided=auth()->user()->id;
-        
-        
-        if($ided != 1){
-        $sucuri_user = DB::table('sucuri_user')->where([['user_id' , $ided]])->get();
-        return view('admin.zones.index', ['sucuri_user'=>$sucuri_user]);
+
+ $ided=auth()->user()->id;
+
+
+if($ided != 1){
+          $sucuri_user = DB::table('sucuri_user')->where([['user_id' , $ided]])->get();
+          return  view('admin.zones.index', ['sucuri_user'=>$sucuri_user,'messages'=>'Approved/Pending Successful']);
         } else {
-        $sucuri_user = DB::table('sucuri_user')->get();
-        // dd($sucuri_user);
-        return view('admin.zones.index', ['sucuri_user'=>$sucuri_user]);
+        $sucuri_user = DB::table('sucuri_user')->get();        
+          // dd($sucuri_user);
+         return  view('admin.zones.index', ['sucuri_user'=>$sucuri_user,'messages'=>'Approved/Pending Successful']);
         }
-        
+           
         }
 
 
@@ -193,13 +193,25 @@ if($ided != 1){
     public function create()
     {
         //
-       
+      
         $users      = User::where('owner', auth()->user()->id)->get();
         $cfaccounts = cfaccount::where('reseller_id', auth()->user()->id)->get();
         // get packages from here
         $packages = package::all();
 
         return view('admin.zones.create', compact('users', 'cfaccounts', 'packages'));
+    }
+
+    public function created()
+    {
+        //
+       
+        $users      = User::where('owner', auth()->user()->id)->get();
+        $cfaccounts = cfaccount::where('reseller_id', auth()->user()->id)->get();
+        // get packages from here
+        $packages = package::all();
+
+        return view('admin.zones.created', compact('users', 'cfaccounts', 'packages'));
     }
 
     
@@ -426,7 +438,247 @@ if($status==1){
         
            return redirect()->route('admin.zones.index')->with('success', 'Post Updated');
     }
+   
     
+
+    public function stored(Request $request)
+    {
+        //
+      
+//dd('op');
+
+      // var_dump(request('name'));
+      //  var_dump(request('s_key'));
+      //  var_dump(request('a_key'));
+      //  var_dump(request('url'));
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            
+            'url' => 'required' ,
+            'user_id' => 'required' ,
+            
+        ]);
+         $ided=auth()->user()->id;
+        if($ided > 1){
+            $user = DB::select("select * from brandings b inner join packages p on (p.id = b.pckg_detail) where user_id = $ided");
+
+            $domains = DB::select("SELECT COUNT(id) as id FROM sucuri_user WHERE user_id =".$ided." AND active !=2");
+            $domainURL = DB::select("SELECT url FROM sucuri_user WHERE url = '".$request->input('url')."';");
+
+            $totalNumberOfDomain = 0;
+            $gainDomain = 0;
+            foreach ($domains as $key ) {
+                $gainDomain = $key->id;
+            }
+           
+            foreach ($user as $key ) {
+                $totalNumberOfDomain = $key->domains;
+            }
+            if($request->sbt == "Update" ){
+                // Sucuri::update($request->all())->where("id" , $request->updatedID); 
+                      DB::update('update sucuri_user set name = ? , url = ? , user_id = ?  where id = ?',[$request->name,$request->url,$request->user_id,$request->updatedID]);
+    
+                      $request->session()->flash('status', "Domain Updated");
+                }
+            else if($totalNumberOfDomain > $gainDomain){
+                // Sucuri::create($request->all());
+                if(!empty($domainURL)){ 
+                   $request->session()->flash('status', "The Domain name (".$request->input('url').") has been added already in the system, please check again."); 
+                } else {
+                
+
+
+
+
+                   $curl = curl_init();
+            $auth_data = array(
+            'k'         => '7302b26beb3438873cf29499591358fc',
+            'under_ddos_attack='        => '0',
+            'restrict_admin_access'     => '0',
+            'use_sucuri_dns' => '0',
+            'a'=>  'add_site',
+            'domains'=>  $request->input('url'),
+            'format'=>  'json'
+            
+            );
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $auth_data);
+            curl_setopt($curl, CURLOPT_URL, 'https://waf.sucuri.net/api?v2');
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            $result = curl_exec($curl);
+            if(!$result){die("Connection Failure");}
+            curl_close($curl);
+           // dd($result);
+            //$result1 = utf8_encode($result);
+            //$result2 =json_decode($result1);
+            //$result=array($result);$result = json_decode($result , true);
+           $result = json_decode($result , true);
+           //dd($result);
+//die('ok');
+
+// $message="";
+// $index=0;
+// foreach($result as $ok => $data)
+// {   $index++;
+//     if($index == 3){
+//         foreach ($data as $message) {
+//             $this->message= $message;
+//         }
+//     }
+// }
+
+
+
+  $string = implode(" ",$result['output']);
+ $status = $result['status'];
+
+            //return $result->status ;
+
+//dd($string);
+if($string=='You have already added this domain to your account' and $status==0 ){
+
+
+    Sucuri::create([
+        'name' => $request->input('name'),
+        'url' => $request->input('url'),
+        'user_id' => $request->input('user_id'),
+        'a_key' => $request->input('a_key'),
+        'updated_at' => $request->input('updated_at'),
+        'created_at' => $request->input('created_at'),
+       ]);  
+                   $request->session()->flash('status', "The domain name has been added successfully. Awaiting approval from Admin for activation.");
+               
+}elseif($status==1) { Sucuri::create([
+    'name' => $request->input('name'),
+    'url' => $request->input('url'),
+    'user_id' => $request->input('user_id'),
+    'a_key' => $request->input('a_key'),
+    'updated_at' => $request->input('updated_at'),
+    'created_at' => $request->input('created_at'),
+   ]);  
+               $request->session()->flash('status', "The domain name has been added successfully. Awaiting approval from Admin for activation."); }else{
+
+    $request->session()->flash('status', $request->input('url').' '.$string);
+
+}
+               
+                }
+            } 
+            else{
+                $request->session()->flash('status', "Your request has not been processed. Your total domains are ".$totalNumberOfDomain." and the active domains are ".$gainDomain.".");   
+            }
+
+        }
+        else if($ided == 1){
+            if($request->user_id){
+                $ided = $request->user_id;
+                 $user = DB::select("select * from brandings b inner join packages p on (p.id = b.pckg_detail) where user_id = $ided");
+
+            $domains = DB::select("SELECT COUNT(id) as id FROM sucuri_user WHERE user_id =".$ided."");
+            $domainURL = DB::select("SELECT url FROM sucuri_user WHERE url = '".$request->input('url')."';");
+            
+            $totalNumberOfDomain = 0;
+            $gainDomain = 0;
+            foreach ($domains as $key ) {
+                $gainDomain = $key->id;
+            }
+           foreach ($user as $key ) {
+                $totalNumberOfDomain = $key->domains;
+            }
+            
+            if($request->sbt == "Update" ){
+            // Sucuri::update($request->all())->where("id" , $request->updatedID); 
+                  DB::update('update sucuri_user set name = ? , url = ? , user_id = ?  where id = ?',[$request->name,$request->url,$request->user_id,$request->updatedID]);
+
+                  $request->session()->flash('status', "Domain Updated");
+            }
+            else if($totalNumberOfDomain > $gainDomain){
+                foreach ($domainURL as $key ) {
+                    $domainURL = $key->url;
+                }
+                if(!empty($domainURL)){ 
+                   $request->session()->flash('status', "The Domain name (".$request->input('url').") has been added already in the system, please check again."); 
+                } else {
+                //  Sucuri::create([
+                //     'name' => $request->input('name'),
+                //     'url' => $request->input('url'),
+                //     'user_id' => $request->input('user_id'),
+                //     'a_key' => $request->input('a_key'),
+                //     'updated_at' => $request->input('updated_at'),
+                //     'created_at' => $request->input('created_at'),
+                //    ]);  
+                   $curl = curl_init();
+                   $auth_data = array(
+                   'k'         => '7302b26beb3438873cf29499591358fc',
+                   'under_ddos_attack='        => '0',
+                   'restrict_admin_access'     => '0',
+                   'use_sucuri_dns' => '0',
+                   'a'=>  'add_site',
+                   'domains'=>  $request->input('url'),
+                   'format'=>  'json'
+                   
+                   );
+                   curl_setopt($curl, CURLOPT_POST, 1);
+                   curl_setopt($curl, CURLOPT_POSTFIELDS, $auth_data);
+                   curl_setopt($curl, CURLOPT_URL, 'https://waf.sucuri.net/api?v2');
+                   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+                   curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+                   $result = curl_exec($curl);
+                  // dd($result);
+                   if(!$result){die("Connection Failure");}
+                   curl_close($curl); 
+                   $result = json_decode($result , true);
+///die("ok2");
+ 
+$string = implode(" ",$result['output']);
+$status = $result['status'];
+
+           //return $result->status ;
+
+
+if($string=='You have already added this domain to your account' and $status==0 ){
+
+
+   Sucuri::create([
+       'name' => $request->input('name'),
+       'url' => $request->input('url'),
+       'user_id' => $request->input('user_id'),
+       'a_key' => $request->input('a_key'),
+       'updated_at' => $request->input('updated_at'),
+       'created_at' => $request->input('created_at'),
+      ]);  
+                  $request->session()->flash('status', "The domain name has been added successfully. Awaiting approval from Admin for activation.");
+              
+}elseif($status==1) { Sucuri::create([
+    'name' => $request->input('name'),
+    'url' => $request->input('url'),
+    'user_id' => $request->input('user_id'),
+    'a_key' => $request->input('a_key'),
+    'updated_at' => $request->input('updated_at'),
+    'created_at' => $request->input('created_at'),
+   ]);  
+               $request->session()->flash('status', "The domain name has been added successfully. Awaiting approval from Admin for activation."); } else{
+
+   $request->session()->flash('status', $request->input('url').' '.$string);
+
+}
+               }
+            }
+            else{
+                   $request->session()->flash('status', "Your request has not been processed. Your total domains are ".$totalNumberOfDomain." and the active domains are ".$gainDomain.".");   
+                 }
+            }
+        }
+        
+        
+           return redirect()->route('admin.zones.index')->with('success', 'Post Updated');
+    }
+    
+
+
+
 
     /**
      * Store stackPath Zone
